@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as FriendsRouteImport } from './routes/friends'
+import { Route as InsightsRouteImport } from './routes/insights'
 import { Route as TransactionsRouteImport } from './routes/transactions'
 import { Route as FriendsFriendIdRouteImport } from './routes/friends.$friendId'
 
@@ -22,6 +23,11 @@ const IndexRoute = IndexRouteImport.update({
 const FriendsRoute = FriendsRouteImport.update({
   id: '/friends',
   path: '/friends',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InsightsRoute = InsightsRouteImport.update({
+  id: '/insights',
+  path: '/insights',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TransactionsRoute = TransactionsRouteImport.update({
@@ -38,12 +44,14 @@ const FriendsFriendIdRoute = FriendsFriendIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/friends': typeof FriendsRouteWithChildren
+  '/insights': typeof InsightsRoute
   '/transactions': typeof TransactionsRoute
   '/friends/$friendId': typeof FriendsFriendIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/friends': typeof FriendsRouteWithChildren
+  '/insights': typeof InsightsRoute
   '/transactions': typeof TransactionsRoute
   '/friends/$friendId': typeof FriendsFriendIdRoute
 }
@@ -51,20 +59,29 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/friends': typeof FriendsRouteWithChildren
+  '/insights': typeof InsightsRoute
   '/transactions': typeof TransactionsRoute
   '/friends/$friendId': typeof FriendsFriendIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/friends' | '/transactions' | '/friends/$friendId'
+  fullPaths:
+    '/' | '/friends' | '/insights' | '/transactions' | '/friends/$friendId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/friends' | '/transactions' | '/friends/$friendId'
-  id: '__root__' | '/' | '/friends' | '/transactions' | '/friends/$friendId'
+  to: '/' | '/friends' | '/insights' | '/transactions' | '/friends/$friendId'
+  id:
+    | '__root__'
+    | '/'
+    | '/friends'
+    | '/insights'
+    | '/transactions'
+    | '/friends/$friendId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   FriendsRoute: typeof FriendsRouteWithChildren
+  InsightsRoute: typeof InsightsRoute
   TransactionsRoute: typeof TransactionsRoute
 }
 
@@ -82,6 +99,13 @@ declare module '@tanstack/react-router' {
       path: '/friends'
       fullPath: '/friends'
       preLoaderRoute: typeof FriendsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/insights': {
+      id: '/insights'
+      path: '/insights'
+      fullPath: '/insights'
+      preLoaderRoute: typeof InsightsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/transactions': {
@@ -115,6 +139,7 @@ const FriendsRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   FriendsRoute: FriendsRouteWithChildren,
+  InsightsRoute: InsightsRoute,
   TransactionsRoute: TransactionsRoute,
 }
 export const routeTree = rootRouteImport
