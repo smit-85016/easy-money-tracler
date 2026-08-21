@@ -1,0 +1,156 @@
+import type { ReactNode } from "react";
+import { cn } from "@/lib/utils";
+import { haptics } from "@/lib/haptics";
+
+export function GlassCard({
+  className,
+  children,
+}: {
+  className?: string;
+  children: ReactNode;
+}) {
+  return <div className={cn("glass rounded-3xl", className)}>{children}</div>;
+}
+
+export function SectionLabel({ children, action }: { children: ReactNode; action?: ReactNode }) {
+  return (
+    <div className="mb-3 flex items-end justify-between px-1">
+      <h2 className="text-[13px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+        {children}
+      </h2>
+      {action}
+    </div>
+  );
+}
+
+export function Chip({
+  active,
+  onClick,
+  children,
+  className,
+}: {
+  active?: boolean;
+  onClick?: () => void;
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        haptics.select();
+        onClick?.();
+      }}
+      className={cn(
+        "press rounded-full border px-4 py-2 text-sm font-medium active:press-active",
+        active
+          ? "border-primary/60 bg-primary/15 text-foreground"
+          : "border-border bg-secondary/50 text-muted-foreground",
+        className,
+      )}
+    >
+      {children}
+    </button>
+  );
+}
+
+export function AmountField({
+  value,
+  onChange,
+  autoFocus,
+  placeholder = "0",
+}: {
+  value: string;
+  onChange: (next: string) => void;
+  autoFocus?: boolean;
+  placeholder?: string;
+}) {
+  return (
+    <div className="flex items-baseline justify-center gap-1 py-2">
+      <span className="text-3xl font-light text-muted-foreground">₹</span>
+      <input
+        inputMode="decimal"
+        autoFocus={autoFocus}
+        value={value}
+        placeholder={placeholder}
+        onChange={(event) => onChange(event.target.value.replace(/[^\d.]/g, ""))}
+        className="numeric w-full max-w-[70vw] bg-transparent text-center text-6xl font-semibold text-foreground outline-none placeholder:text-muted-foreground/40"
+      />
+    </div>
+  );
+}
+
+export function FieldRow({
+  label,
+  children,
+}: {
+  label: string;
+  children: ReactNode;
+}) {
+  return (
+    <label className="block">
+      <span className="mb-1.5 block text-xs font-medium uppercase tracking-[0.1em] text-muted-foreground">
+        {label}
+      </span>
+      {children}
+    </label>
+  );
+}
+
+export function TextField(props: React.InputHTMLAttributes<HTMLInputElement>) {
+  const { className, ...rest } = props;
+  return (
+    <input
+      {...rest}
+      className={cn(
+        "w-full rounded-2xl border border-input bg-secondary/40 px-4 py-3 text-[15px] text-foreground outline-none transition-colors placeholder:text-muted-foreground/60 focus:border-ring",
+        className,
+      )}
+    />
+  );
+}
+
+export function PrimaryButton({
+  children,
+  className,
+  ...rest
+}: React.ButtonHTMLAttributes<HTMLButtonElement>) {
+  return (
+    <button
+      {...rest}
+      className={cn(
+        "press w-full rounded-2xl bg-primary px-5 py-4 text-[15px] font-semibold text-primary-foreground shadow-float active:press-active disabled:opacity-40",
+        className,
+      )}
+    >
+      {children}
+    </button>
+  );
+}
+
+export function GhostButton({
+  children,
+  className,
+  ...rest
+}: React.ButtonHTMLAttributes<HTMLButtonElement>) {
+  return (
+    <button
+      {...rest}
+      className={cn(
+        "press rounded-2xl border border-border bg-secondary/50 px-4 py-3 text-sm font-medium text-foreground active:press-active",
+        className,
+      )}
+    >
+      {children}
+    </button>
+  );
+}
+
+export function EmptyState({ title, hint }: { title: string; hint?: string }) {
+  return (
+    <div className="rounded-3xl border border-dashed border-border px-6 py-10 text-center">
+      <p className="text-[15px] font-medium text-foreground">{title}</p>
+      {hint ? <p className="mt-1 text-sm text-muted-foreground">{hint}</p> : null}
+    </div>
+  );
+}

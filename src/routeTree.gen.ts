@@ -10,33 +10,79 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as FriendsRouteImport } from './routes/friends'
+import { Route as InsightsRouteImport } from './routes/insights'
+import { Route as TransactionsRouteImport } from './routes/transactions'
+import { Route as FriendsFriendIdRouteImport } from './routes/friends.$friendId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FriendsRoute = FriendsRouteImport.update({
+  id: '/friends',
+  path: '/friends',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InsightsRoute = InsightsRouteImport.update({
+  id: '/insights',
+  path: '/insights',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TransactionsRoute = TransactionsRouteImport.update({
+  id: '/transactions',
+  path: '/transactions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FriendsFriendIdRoute = FriendsFriendIdRouteImport.update({
+  id: '/$friendId',
+  path: '/$friendId',
+  getParentRoute: () => FriendsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/friends': typeof FriendsRouteWithChildren
+  '/insights': typeof InsightsRoute
+  '/transactions': typeof TransactionsRoute
+  '/friends/$friendId': typeof FriendsFriendIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/friends': typeof FriendsRouteWithChildren
+  '/insights': typeof InsightsRoute
+  '/transactions': typeof TransactionsRoute
+  '/friends/$friendId': typeof FriendsFriendIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/friends': typeof FriendsRouteWithChildren
+  '/insights': typeof InsightsRoute
+  '/transactions': typeof TransactionsRoute
+  '/friends/$friendId': typeof FriendsFriendIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    '/' | '/friends' | '/insights' | '/transactions' | '/friends/$friendId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/friends' | '/insights' | '/transactions' | '/friends/$friendId'
+  id:
+    | '__root__'
+    | '/'
+    | '/friends'
+    | '/insights'
+    | '/transactions'
+    | '/friends/$friendId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  FriendsRoute: typeof FriendsRouteWithChildren
+  InsightsRoute: typeof InsightsRoute
+  TransactionsRoute: typeof TransactionsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +94,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/friends': {
+      id: '/friends'
+      path: '/friends'
+      fullPath: '/friends'
+      preLoaderRoute: typeof FriendsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/insights': {
+      id: '/insights'
+      path: '/insights'
+      fullPath: '/insights'
+      preLoaderRoute: typeof InsightsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/transactions': {
+      id: '/transactions'
+      path: '/transactions'
+      fullPath: '/transactions'
+      preLoaderRoute: typeof TransactionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/friends/$friendId': {
+      id: '/friends/$friendId'
+      path: '/$friendId'
+      fullPath: '/friends/$friendId'
+      preLoaderRoute: typeof FriendsFriendIdRouteImport
+      parentRoute: typeof FriendsRoute
+    }
   }
 }
 
+interface FriendsRouteChildren {
+  FriendsFriendIdRoute: typeof FriendsFriendIdRoute
+}
+
+const FriendsRouteChildren: FriendsRouteChildren = {
+  FriendsFriendIdRoute: FriendsFriendIdRoute,
+}
+
+const FriendsRouteWithChildren =
+  FriendsRoute._addFileChildren(FriendsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  FriendsRoute: FriendsRouteWithChildren,
+  InsightsRoute: InsightsRoute,
+  TransactionsRoute: TransactionsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
