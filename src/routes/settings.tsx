@@ -64,7 +64,7 @@ function SettingsPage() {
   };
 
   return (
-    <AppShell title="Settings" subtitle={user?.email ?? undefined}>
+    <AppShell title="Settings" subtitle={user?.email ?? ""}>
       <SectionLabel>Accounts</SectionLabel>
       <GlassCard className="divide-y divide-border p-2">
         {accounts.map((account) => (

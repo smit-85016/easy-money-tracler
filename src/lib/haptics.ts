@@ -3,7 +3,7 @@ export function tap(pattern: number | number[] = 12) {
   const vibrate = (navigator as Navigator & { vibrate?: (p: number | number[]) => boolean })
     .vibrate;
   try {
-    vibrate?.call(navigator, pattern);
+    vibrate?.call(navigator, pattern as number & number[]);
   } catch {
     /* haptics unavailable */
   }
