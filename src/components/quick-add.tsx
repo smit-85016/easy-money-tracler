@@ -37,7 +37,8 @@ function todayLocal() {
 }
 
 function dateToIso(date: string) {
-  return date ? new Date(`${date}T${new Date().toTimeString().slice(0, 8)}`).toISOString() : undefined;
+  const base = date || todayLocal();
+  return new Date(`${base}T${new Date().toTimeString().slice(0, 8)}`).toISOString();
 }
 
 export function QuickAddSheet({
