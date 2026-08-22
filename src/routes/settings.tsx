@@ -58,7 +58,7 @@ function SettingsPage() {
       kind,
       sort_order: accounts.length,
     });
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     setName("");
     toast.success(`${trimmed} added`);
   };

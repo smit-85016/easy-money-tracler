@@ -121,7 +121,7 @@ function ExpenseForm({ onDone }: { onDone: () => void }) {
   const paise = toPaise(amount);
 
   const submit = () => {
-    if (paise <= 0) return toast.error("Enter an amount");
+    if (paise <= 0) { toast.error("Enter an amount"); return; }
     save.mutate(
       {
         kind: "expense",
@@ -215,7 +215,7 @@ function IncomeForm({ onDone }: { onDone: () => void }) {
   const paise = toPaise(amount);
 
   const submit = () => {
-    if (paise <= 0) return toast.error("Enter an amount");
+    if (paise <= 0) { toast.error("Enter an amount"); return; }
     save.mutate(
       {
         kind: "income",
@@ -301,8 +301,8 @@ function SplitForm({ onDone }: { onDone: () => void }) {
   };
 
   const submit = () => {
-    if (total <= 0) return toast.error("Enter the bill amount");
-    if (!selected.length) return toast.error("Pick at least one friend");
+    if (total <= 0) { toast.error("Enter the bill amount"); return; }
+    if (!selected.length) { toast.error("Pick at least one friend"); return; }
     saveSplit.mutate(
       {
         amount: total,
@@ -435,8 +435,8 @@ function TransferForm({ onDone }: { onDone: () => void }) {
   const toId = to ?? accounts[1]?.id ?? null;
 
   const submit = () => {
-    if (paise <= 0) return toast.error("Enter an amount");
-    if (!fromId || !toId || fromId === toId) return toast.error("Pick two different accounts");
+    if (paise <= 0) { toast.error("Enter an amount"); return; }
+    if (!fromId || !toId || fromId === toId) { toast.error("Pick two different accounts"); return; }
     save.mutate(
       { kind: "transfer", amount: paise, account_id: fromId, to_account_id: toId },
       {
