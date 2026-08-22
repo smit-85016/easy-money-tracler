@@ -115,7 +115,7 @@ function FriendDetail() {
           className="w-full"
           onClick={() => {
             const paise = toPaise(amount);
-            if (paise <= 0) return toast.error("Enter an amount");
+            if (paise <= 0) { toast.error("Enter an amount"); return; }
             saveEntry.mutate(
               { friend_id: friendId, direction, amount: paise, label: label.trim() || null },
               {
