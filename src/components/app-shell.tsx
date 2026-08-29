@@ -31,23 +31,12 @@ export function AppShell({
   subtitle?: string;
   children: ReactNode;
 }) {
-  const { loading, user } = useAuth();
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const [menuOpen, setMenuOpen] = useState(false);
   const [mode, setMode] = useState<QuickAddMode | null>(null);
   const { data: ledger = [] } = useLedger();
   const { data: friends = [] } = useFriends();
   useReminderWatcher(ledger, friends);
-
-  if (loading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="size-8 animate-spin rounded-full border-2 border-border border-t-primary" />
-      </div>
-    );
-  }
-
-  if (!user) return <SignInGate />;
 
   return (
     <div className="mx-auto min-h-screen w-full max-w-md px-5 pb-32 pt-8">
