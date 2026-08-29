@@ -1,80 +1,50 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import type { Database } from "@/integrations/supabase/types";
-import { useAuth } from "@/lib/auth";
+import {
+  newId,
+  readStore,
+  writeStore,
+  type Account,
+  type Friend,
+  type LedgerEntry,
+  type Transaction,
+} from "@/lib/local-store";
 
-export type Account = Database["public"]["Tables"]["accounts"]["Row"];
-export type Transaction = Database["public"]["Tables"]["transactions"]["Row"];
-export type Friend = Database["public"]["Tables"]["friends"]["Row"];
-export type LedgerEntry = Database["public"]["Tables"]["friend_ledger"]["Row"];
+export type { Account, Friend, LedgerEntry, Transaction };
 
 export type TxKind = "expense" | "income" | "transfer";
 
 /* ---------------------------------- reads --------------------------------- */
 
 export function useAccounts() {
-  const { user } = useAuth();
   return useQuery({
-    queryKey: ["accounts", user?.id],
-    enabled: !!user,
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("accounts")
-        .select("*")
-        .eq("archived", false)
-        .order("sort_order", { ascending: true });
-      if (error) throw error;
-      return data as Account[];
-    },
+    queryKey: ["accounts"],
+    queryFn: async () =>
+      readStore()
+        .accounts.filter((a) => !a.archived)
+        .sort((a, b) => a.sort_order - b.sort_order),
   });
 }
 
 export function useTransactions() {
-  const { user } = useAuth();
   return useQuery({
-    queryKey: ["transactions", user?.id],
-    enabled: !!user,
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("transactions")
-        .select("*")
-        .order("occurred_at", { ascending: false })
-        .limit(1000);
-      if (error) throw error;
-      return data as Transaction[];
-    },
+    queryKey: ["transactions"],
+    queryFn: async () =>
+      [...readStore().transactions].sort((a, b) => b.occurred_at.localeCompare(a.occurred_at)),
   });
 }
 
 export function useFriends() {
-  const { user } = useAuth();
   return useQuery({
-    queryKey: ["friends", user?.id],
-    enabled: !!user,
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("friends")
-        .select("*")
-        .order("name", { ascending: true });
-      if (error) throw error;
-      return data as Friend[];
-    },
+    queryKey: ["friends"],
+    queryFn: async () => [...readStore().friends].sort((a, b) => a.name.localeCompare(b.name)),
   });
 }
 
 export function useLedger() {
-  const { user } = useAuth();
   return useQuery({
-    queryKey: ["ledger", user?.id],
-    enabled: !!user,
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("friend_ledger")
-        .select("*")
-        .order("occurred_at", { ascending: false });
-      if (error) throw error;
-      return data as LedgerEntry[];
-    },
+    queryKey: ["ledger"],
+    queryFn: async () =>
+      [...readStore().ledger].sort((a, b) => b.occurred_at.localeCompare(a.occurred_at)),
   });
 }
 
@@ -177,24 +147,32 @@ export type NewTransaction = {
 };
 
 export function useSaveTransaction() {
-  const { user } = useAuth();
   const invalidate = useInvalidateAll();
   return useMutation({
     mutationFn: async (input: NewTransaction & { id?: string }) => {
-      if (!user) throw new Error("Not signed in");
-      const payload = { ...input, user_id: user.id };
-      if (input.id) {
-        const { error } = await supabase.from("transactions").update(payload).eq("id", input.id);
-        if (error) throw error;
-        return input.id;
-      }
-      const { data, error } = await supabase
-        .from("transactions")
-        .insert(payload)
-        .select("id")
-        .single();
-      if (error) throw error;
-      return data.id;
+      const now = new Date().toISOString();
+      const id = input.id ?? newId();
+      writeStore((data) => {
+        const base: Transaction = {
+          id,
+          kind: input.kind,
+          amount: input.amount,
+          category: input.category ?? null,
+          description: input.description ?? null,
+          note: input.note ?? null,
+          source: input.source ?? null,
+          occurred_at: input.occurred_at ?? now,
+          account_id: input.account_id ?? null,
+          to_account_id: input.to_account_id ?? null,
+          created_at: now,
+        };
+        const existing = data.transactions.find((t) => t.id === id);
+        data.transactions = existing
+          ? data.transactions.map((t) => (t.id === id ? { ...base, created_at: t.created_at } : t))
+          : [base, ...data.transactions];
+        return data;
+      });
+      return id;
     },
     onSuccess: invalidate,
   });
@@ -204,8 +182,11 @@ export function useDeleteTransaction() {
   const invalidate = useInvalidateAll();
   return useMutation({
     mutationFn: async (id: string) => {
-      const { error } = await supabase.from("transactions").delete().eq("id", id);
-      if (error) throw error;
+      writeStore((data) => {
+        data.transactions = data.transactions.filter((t) => t.id !== id);
+        data.ledger = data.ledger.filter((e) => e.transaction_id !== id);
+        return data;
+      });
     },
     onSuccess: invalidate,
   });
@@ -223,68 +204,73 @@ export type SplitInput = {
 };
 
 export function useSaveSplit() {
-  const { user } = useAuth();
   const invalidate = useInvalidateAll();
   return useMutation({
     mutationFn: async (input: SplitInput) => {
-      if (!user) throw new Error("Not signed in");
-      const { data, error } = await supabase
-        .from("transactions")
-        .insert({
-          user_id: user.id,
-          kind: "expense",
-          amount: input.amount,
-          category: input.category ?? "other",
-          description: input.description ?? null,
-          note: input.note ?? null,
-          account_id: input.account_id ?? null,
-          occurred_at: input.occurred_at ?? new Date().toISOString(),
-        })
-        .select("id")
-        .single();
-      if (error) throw error;
-
-      const rows = input.shares
-        .filter((s) => s.amount > 0)
-        .map((s) => ({
-          user_id: user.id,
-          friend_id: s.friendId,
-          transaction_id: data.id,
-          direction: "to_receive" as const,
-          amount: s.amount,
-          label: input.description ?? "Split",
-          occurred_at: input.occurred_at ?? new Date().toISOString(),
-        }));
-      if (rows.length) {
-        const { error: ledgerError } = await supabase.from("friend_ledger").insert(rows);
-        if (ledgerError) throw ledgerError;
-      }
-      return data.id;
+      const now = new Date().toISOString();
+      const at = input.occurred_at ?? now;
+      const txId = newId();
+      writeStore((data) => {
+        data.transactions = [
+          {
+            id: txId,
+            kind: "expense",
+            amount: input.amount,
+            category: input.category ?? "other",
+            description: input.description ?? null,
+            note: input.note ?? null,
+            source: null,
+            occurred_at: at,
+            account_id: input.account_id ?? null,
+            to_account_id: null,
+            created_at: now,
+          },
+          ...data.transactions,
+        ];
+        const rows: LedgerEntry[] = input.shares
+          .filter((s) => s.amount > 0)
+          .map((s) => ({
+            id: newId(),
+            friend_id: s.friendId,
+            transaction_id: txId,
+            direction: "to_receive" as const,
+            amount: s.amount,
+            label: input.description ?? "Split",
+            occurred_at: at,
+            settled_at: null,
+            remind_at: null,
+            created_at: now,
+          }));
+        data.ledger = [...rows, ...data.ledger];
+        return data;
+      });
+      return txId;
     },
     onSuccess: invalidate,
   });
 }
 
 export function useAddFriend() {
-  const { user } = useAuth();
   const invalidate = useInvalidateAll();
   return useMutation({
     mutationFn: async (name: string) => {
-      if (!user) throw new Error("Not signed in");
-      const { data, error } = await supabase
-        .from("friends")
-        .insert({ user_id: user.id, name: name.trim() })
-        .select("*")
-        .single();
-      if (error) throw error;
-      return data as Friend;
+      const friend: Friend = {
+        id: newId(),
+        name: name.trim(),
+        phone: null,
+        created_at: new Date().toISOString(),
+      };
+      writeStore((data) => {
+        data.friends = [...data.friends, friend];
+        return data;
+      });
+      return friend;
     },
     onSuccess: invalidate,
   });
 }
 
 export function useSaveLedgerEntry() {
-  const { user } = useAuth();
   const invalidate = useInvalidateAll();
   return useMutation({
     mutationFn: async (input: {
@@ -293,15 +279,25 @@ export function useSaveLedgerEntry() {
       amount: number;
       label?: string | null;
     }) => {
-      if (!user) throw new Error("Not signed in");
-      const { error } = await supabase.from("friend_ledger").insert({
-        user_id: user.id,
-        friend_id: input.friend_id,
-        direction: input.direction,
-        amount: input.amount,
-        label: input.label ?? null,
+      const now = new Date().toISOString();
+      writeStore((data) => {
+        data.ledger = [
+          {
+            id: newId(),
+            friend_id: input.friend_id,
+            transaction_id: null,
+            direction: input.direction,
+            amount: input.amount,
+            label: input.label ?? null,
+            occurred_at: now,
+            settled_at: null,
+            remind_at: null,
+            created_at: now,
+          },
+          ...data.ledger,
+        ];
+        return data;
       });
-      if (error) throw error;
     },
     onSuccess: invalidate,
   });
@@ -316,8 +312,10 @@ export function useUpdateLedgerEntry() {
       remind_at?: string | null;
     }) => {
       const { id, ...rest } = input;
-      const { error } = await supabase.from("friend_ledger").update(rest).eq("id", id);
-      if (error) throw error;
+      writeStore((data) => {
+        data.ledger = data.ledger.map((e) => (e.id === id ? { ...e, ...rest } : e));
+        return data;
+      });
     },
     onSuccess: invalidate,
   });
@@ -327,8 +325,49 @@ export function useDeleteLedgerEntry() {
   const invalidate = useInvalidateAll();
   return useMutation({
     mutationFn: async (id: string) => {
-      const { error } = await supabase.from("friend_ledger").delete().eq("id", id);
-      if (error) throw error;
+      writeStore((data) => {
+        data.ledger = data.ledger.filter((e) => e.id !== id);
+        return data;
+      });
+    },
+    onSuccess: invalidate,
+  });
+}
+
+export function useAddAccount() {
+  const invalidate = useInvalidateAll();
+  return useMutation({
+    mutationFn: async (input: { name: string; kind: string }) => {
+      writeStore((data) => {
+        data.accounts = [
+          ...data.accounts,
+          {
+            id: newId(),
+            name: input.name.trim(),
+            kind: input.kind,
+            opening_balance: 0,
+            sort_order: data.accounts.length,
+            archived: false,
+            created_at: new Date().toISOString(),
+          },
+        ];
+        return data;
+      });
+    },
+    onSuccess: invalidate,
+  });
+}
+
+export function useResetAllData() {
+  const invalidate = useInvalidateAll();
+  return useMutation({
+    mutationFn: async () => {
+      writeStore((data) => {
+        data.transactions = [];
+        data.ledger = [];
+        data.friends = [];
+        return data;
+      });
     },
     onSuccess: invalidate,
   });
