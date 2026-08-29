@@ -3,7 +3,6 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { Home, Receipt, Users, PieChart, Plus, ArrowDownLeft, ArrowUpRight, Split, ArrowLeftRight, Settings } from "lucide-react";
 import { BottomSheet } from "@/components/bottom-sheet";
 import { QuickAddSheet, type QuickAddMode } from "@/components/quick-add";
-import { useAuth } from "@/lib/auth";
 import { haptics } from "@/lib/haptics";
 import { useFriends, useLedger } from "@/lib/data";
 import { useReminderWatcher } from "@/lib/reminders";
