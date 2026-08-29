@@ -3,7 +3,6 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { Home, Receipt, Users, PieChart, Plus, ArrowDownLeft, ArrowUpRight, Split, ArrowLeftRight, Settings } from "lucide-react";
 import { BottomSheet } from "@/components/bottom-sheet";
 import { QuickAddSheet, type QuickAddMode } from "@/components/quick-add";
-import { useAuth } from "@/lib/auth";
 import { haptics } from "@/lib/haptics";
 import { useFriends, useLedger } from "@/lib/data";
 import { useReminderWatcher } from "@/lib/reminders";
@@ -32,23 +31,12 @@ export function AppShell({
   subtitle?: string;
   children: ReactNode;
 }) {
-  const { loading, user } = useAuth();
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const [menuOpen, setMenuOpen] = useState(false);
   const [mode, setMode] = useState<QuickAddMode | null>(null);
   const { data: ledger = [] } = useLedger();
   const { data: friends = [] } = useFriends();
   useReminderWatcher(ledger, friends);
-
-  if (loading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="size-8 animate-spin rounded-full border-2 border-border border-t-primary" />
-      </div>
-    );
-  }
-
-  if (!user) return <SignInGate />;
 
   return (
     <div className="mx-auto min-h-screen w-full max-w-md px-5 pb-32 pt-8">
@@ -141,22 +129,5 @@ function NavItem({
       <Icon className="size-[20px]" />
       <span className="text-[10px] font-medium tracking-wide">{label}</span>
     </Link>
-  );
-}
-
-function SignInGate() {
-  return (
-    <div className="mx-auto flex min-h-screen w-full max-w-md flex-col items-center justify-center px-6 text-center">
-      <h1 className="text-3xl font-semibold tracking-tight">Paise</h1>
-      <p className="mt-2 text-sm text-muted-foreground">
-        Your private money notebook. Sign in to sync across your devices.
-      </p>
-      <Link
-        to="/auth"
-        className="press mt-8 w-full rounded-2xl bg-primary px-5 py-4 text-[15px] font-semibold text-primary-foreground shadow-float active:press-active"
-      >
-        Continue
-      </Link>
-    </div>
   );
 }

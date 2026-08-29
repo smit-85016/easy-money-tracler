@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { BellRing, LogOut, Plus } from "lucide-react";
+import { createFileRoute } from "@tanstack/react-router";
+import { BellRing, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { AppShell } from "@/components/app-shell";
 import {
@@ -10,9 +10,13 @@ import {
   SectionLabel,
   TextField,
 } from "@/components/primitives";
-import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "@/lib/auth";
-import { accountBalance, useAccounts, useTransactions } from "@/lib/data";
+import {
+  accountBalance,
+  useAccounts,
+  useAddAccount,
+  useResetAllData,
+  useTransactions,
+} from "@/lib/data";
 import { formatMoney } from "@/lib/money";
 import { notificationPermission, requestNotifications } from "@/lib/reminders";
 
@@ -22,12 +26,12 @@ export const Route = createFileRoute("/settings")({
       { title: "Settings — Paise" },
       {
         name: "description",
-        content: "Manage your accounts, reminders and session in Paise.",
+        content: "Manage your accounts and reminders in Paise. Everything stays on your device.",
       },
       { property: "og:title", content: "Settings — Paise" },
       {
         property: "og:description",
-        content: "Manage your accounts, reminders and session in Paise.",
+        content: "Manage your accounts and reminders in Paise. Everything stays on your device.",
       },
     ],
   }),
@@ -41,30 +45,24 @@ const KINDS = [
 ] as const;
 
 function SettingsPage() {
-  const { user } = useAuth();
-  const navigate = useNavigate();
   const { data: accounts = [] } = useAccounts();
   const { data: transactions = [] } = useTransactions();
+  const addAccount = useAddAccount();
+  const resetData = useResetAllData();
   const [name, setName] = useState("");
   const [kind, setKind] = useState<(typeof KINDS)[number]["id"]>("bank");
   const [permission, setPermission] = useState(notificationPermission());
 
-  const addAccount = async () => {
+  const submitAccount = async () => {
     const trimmed = name.trim();
-    if (!trimmed || !user) return;
-    const { error } = await supabase.from("accounts").insert({
-      user_id: user.id,
-      name: trimmed,
-      kind,
-      sort_order: accounts.length,
-    });
-    if (error) { toast.error(error.message); return; }
+    if (!trimmed) return;
+    await addAccount.mutateAsync({ name: trimmed, kind });
     setName("");
     toast.success(`${trimmed} added`);
   };
 
   return (
-    <AppShell title="Settings" subtitle={user?.email ?? ""}>
+    <AppShell title="Settings" subtitle="Saved on this device">
       <SectionLabel>Accounts</SectionLabel>
       <GlassCard className="divide-y divide-border p-2">
         {accounts.map((account) => (
@@ -94,7 +92,7 @@ function SettingsPage() {
             onChange={(e) => setName(e.target.value)}
             placeholder="New account name"
           />
-          <GhostButton className="shrink-0 px-4" onClick={() => void addAccount()}>
+          <GhostButton className="shrink-0 px-4" onClick={() => void submitAccount()}>
             <Plus className="size-4" />
           </GhostButton>
         </div>
@@ -125,16 +123,22 @@ function SettingsPage() {
       </div>
 
       <div className="mt-8">
-        <SectionLabel>Session</SectionLabel>
-        <GhostButton
-          className="flex w-full items-center justify-center gap-2 text-destructive"
-          onClick={async () => {
-            await supabase.auth.signOut();
-            void navigate({ to: "/auth" });
-          }}
-        >
-          <LogOut className="size-4" /> Sign Out
-        </GhostButton>
+        <SectionLabel>Data</SectionLabel>
+        <GlassCard className="px-5 py-4">
+          <p className="text-[13px] text-muted-foreground">
+            All your money data lives only on this device — no account, no sync.
+          </p>
+          <GhostButton
+            className="mt-3 flex items-center gap-2 text-destructive"
+            onClick={async () => {
+              if (!window.confirm("Clear all transactions, friends and dues?")) return;
+              await resetData.mutateAsync();
+              toast.success("All data cleared");
+            }}
+          >
+            <Trash2 className="size-4" /> Clear All Data
+          </GhostButton>
+        </GlassCard>
       </div>
     </AppShell>
   );
