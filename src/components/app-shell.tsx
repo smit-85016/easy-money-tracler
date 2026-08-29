@@ -131,20 +131,3 @@ function NavItem({
     </Link>
   );
 }
-
-function SignInGate() {
-  return (
-    <div className="mx-auto flex min-h-screen w-full max-w-md flex-col items-center justify-center px-6 text-center">
-      <h1 className="text-3xl font-semibold tracking-tight">Paise</h1>
-      <p className="mt-2 text-sm text-muted-foreground">
-        Your private money notebook. Sign in to sync across your devices.
-      </p>
-      <Link
-        to="/auth"
-        className="press mt-8 w-full rounded-2xl bg-primary px-5 py-4 text-[15px] font-semibold text-primary-foreground shadow-float active:press-active"
-      >
-        Continue
-      </Link>
-    </div>
-  );
-}
