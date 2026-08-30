@@ -58,7 +58,7 @@ export function AppShell({
       <main className="rise">{children}</main>
 
       <nav className="fixed inset-x-0 bottom-0 z-40 mx-auto w-full max-w-md px-5 pb-5">
-        <div className="glass relative flex items-center justify-between rounded-[1.75rem] px-3 py-2.5">
+        <div className="glass relative flex items-center justify-between rounded-[1.9rem] px-3 py-3">
           {NAV.slice(0, 2).map((item) => (
             <NavItem key={item.to} {...item} active={pathname === item.to} />
           ))}

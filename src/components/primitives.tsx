@@ -117,7 +117,7 @@ export function TextField(props: React.InputHTMLAttributes<HTMLInputElement>) {
     <input
       {...rest}
       className={cn(
-        "w-full rounded-2xl border border-input bg-secondary/40 px-4 py-3 text-[15px] text-foreground outline-none transition-colors placeholder:text-muted-foreground/60 focus:border-ring",
+        "w-full rounded-2xl border border-input bg-secondary/35 px-4 py-3.5 text-[15px] text-foreground outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-muted-foreground/60 focus:border-ring focus:shadow-[0_0_0_3px_color-mix(in_oklab,var(--color-ring)_18%,transparent)]",
         className,
       )}
     />
