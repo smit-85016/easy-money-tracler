@@ -129,7 +129,8 @@
     z-index: -1;
     background:
       radial-gradient(60% 40% at 12% -8%, oklch(0.635 0.176 267 / 0.22), transparent 70%),
-      radial-gradient(50% 35% at 100% 4%, oklch(0.72 0.12 210 / 0.14), transparent 70%);
+      radial-gradient(50% 35% at 100% 4%, oklch(0.72 0.12 210 / 0.14), transparent 70%),
+      radial-gradient(46% 22% at 50% 102%, oklch(0.635 0.176 267 / 0.2), transparent 72%);
   }
 
   input,
