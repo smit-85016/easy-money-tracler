@@ -34,6 +34,7 @@ export function AppShell({
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const [menuOpen, setMenuOpen] = useState(false);
   const [mode, setMode] = useState<QuickAddMode | null>(null);
+  const [bloom, setBloom] = useState(false);
   const { data: ledger = [] } = useLedger();
   const { data: friends = [] } = useFriends();
   useReminderWatcher(ledger, friends);
@@ -47,7 +48,7 @@ export function AppShell({
         </div>
         <Link
           to="/settings"
-          className="press rounded-full border border-border bg-secondary/50 p-2.5 text-muted-foreground active:press-active"
+          className="press glow-edge rounded-full border border-border bg-secondary/50 p-2.5 text-muted-foreground active:press-active"
           aria-label="Settings"
         >
           <Settings className="size-[18px]" />
@@ -64,10 +65,15 @@ export function AppShell({
           <button
             onClick={() => {
               haptics.select();
+              setBloom(true);
+              window.setTimeout(() => setBloom(false), 520);
               setMenuOpen(true);
             }}
             aria-label="Add"
-            className="press -mt-8 flex size-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-float active:press-active"
+            className={cn(
+              "press glow-button -mt-8 flex size-14 items-center justify-center rounded-full bg-primary text-primary-foreground active:press-active",
+              bloom && "glow-bloom",
+            )}
           >
             <Plus className="size-6" />
           </button>
@@ -87,7 +93,7 @@ export function AppShell({
                 setMenuOpen(false);
                 setMode(action.mode);
               }}
-              className="press flex flex-col items-start gap-3 rounded-2xl border border-border bg-secondary/40 p-4 text-left active:press-active"
+              className="press glow-edge flex flex-col items-start gap-3 rounded-2xl border border-border bg-secondary/40 p-4 text-left active:press-active"
             >
               <span
                 className="flex size-10 items-center justify-center rounded-xl"
@@ -122,8 +128,8 @@ function NavItem({
       to={to}
       onClick={() => haptics.select()}
       className={cn(
-        "press flex w-16 flex-col items-center gap-1 rounded-2xl py-1.5 active:press-active",
-        active ? "text-primary" : "text-muted-foreground",
+        "press flex w-16 flex-col items-center gap-1 rounded-2xl py-1.5 transition-colors duration-200 active:press-active",
+        active ? "glow-active text-primary" : "text-muted-foreground",
       )}
     >
       <Icon className="size-[20px]" />

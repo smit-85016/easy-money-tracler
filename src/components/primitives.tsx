@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { MouseEvent, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { haptics } from "@/lib/haptics";
 
@@ -9,8 +9,22 @@ export function GlassCard({
   className?: string;
   children: ReactNode;
 }) {
-  return <div className={cn("glass rounded-3xl", className)}>{children}</div>;
+  // Desktop-only pointer spotlight: writes CSS vars consumed by .glow-card::after.
+  const onPointerMove = (event: MouseEvent<HTMLDivElement>) => {
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    const el = event.currentTarget;
+    const rect = el.getBoundingClientRect();
+    el.style.setProperty("--mx", `${((event.clientX - rect.left) / rect.width) * 100}%`);
+    el.style.setProperty("--my", `${((event.clientY - rect.top) / rect.height) * 100}%`);
+  };
+
+  return (
+    <div onMouseMove={onPointerMove} className={cn("glow-card rounded-3xl", className)}>
+      {children}
+    </div>
+  );
 }
+
 
 export function SectionLabel({ children, action }: { children: ReactNode; action?: ReactNode }) {
   return (
@@ -42,7 +56,7 @@ export function Chip({
         onClick?.();
       }}
       className={cn(
-        "press rounded-full border px-4 py-2 text-sm font-medium active:press-active",
+        "press glow-edge rounded-full border px-4 py-2 text-sm font-medium active:press-active",
         active
           ? "border-primary/60 bg-primary/15 text-foreground"
           : "border-border bg-secondary/50 text-muted-foreground",
@@ -119,7 +133,7 @@ export function PrimaryButton({
     <button
       {...rest}
       className={cn(
-        "press w-full rounded-2xl bg-primary px-5 py-4 text-[15px] font-semibold text-primary-foreground shadow-float active:press-active disabled:opacity-40",
+        "press glow-button w-full rounded-2xl bg-primary px-5 py-4 text-[15px] font-semibold text-primary-foreground shadow-float active:press-active disabled:opacity-40",
         className,
       )}
     >
@@ -137,7 +151,7 @@ export function GhostButton({
     <button
       {...rest}
       className={cn(
-        "press rounded-2xl border border-border bg-secondary/50 px-4 py-3 text-sm font-medium text-foreground active:press-active",
+        "press glow-edge rounded-2xl border border-border bg-secondary/50 px-4 py-3 text-sm font-medium text-foreground active:press-active",
         className,
       )}
     >
@@ -148,7 +162,7 @@ export function GhostButton({
 
 export function EmptyState({ title, hint }: { title: string; hint?: string }) {
   return (
-    <div className="rounded-3xl border border-dashed border-border px-6 py-10 text-center">
+    <div className="glow-dashed rounded-3xl border border-dashed border-border px-6 py-10 text-center">
       <p className="text-[15px] font-medium text-foreground">{title}</p>
       {hint ? <p className="mt-1 text-sm text-muted-foreground">{hint}</p> : null}
     </div>
