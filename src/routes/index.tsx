@@ -37,14 +37,14 @@ function HomePage() {
         <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
           Available Balance
         </p>
-        <p className="numeric mt-2 text-[44px] font-semibold leading-none">
+        <p className="glow-halo numeric mt-2 text-[44px] font-semibold leading-none">
           {formatMoney(summary.available)}
         </p>
         <div className="mt-5 flex flex-wrap gap-2">
           {summary.accounts.map((account) => (
             <span
               key={account.id}
-              className="rounded-full border border-border bg-secondary/40 px-3 py-1.5 text-[12px] text-muted-foreground"
+              className="glow-edge rounded-full border border-border bg-secondary/40 px-3 py-1.5 text-[12px] text-muted-foreground"
             >
               {account.name}{" "}
               <span className="numeric text-foreground">
@@ -102,8 +102,10 @@ function StatCard({
       : tone === "warning"
         ? "var(--color-warning)"
         : "var(--color-muted-foreground)";
+  const tint =
+    tone === "positive" ? "glow-emerald" : tone === "warning" ? "glow-amber" : "glow-cool";
   return (
-    <GlassCard className="px-3.5 py-4">
+    <GlassCard className={`${tint} px-3.5 py-4`}>
       <Icon className="size-4" style={{ color }} />
       <p className="mt-2 text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
         {label}
