@@ -177,3 +177,263 @@
 @utility rise {
   animation: rise 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
+
+/* ───────────────────────────────────────────────────────────
+   Ambient lighting system — restrained, premium fintech glow.
+   Tokens drive every glow so effects stay consistent.
+   ─────────────────────────────────────────────────────────── */
+
+:root {
+  --glow-primary: 217 91% 62%;
+  --glow-primary-color: oklch(0.635 0.176 267);
+  --glow-cyan: oklch(0.72 0.12 210);
+  --glow-success: oklch(0.75 0.15 158);
+  --glow-warning: oklch(0.8 0.14 82);
+  --glow-opacity: 0.4;
+  --glow-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Premium dark-glass surface with gradient edge light + soft drop shadow. */
+@utility glow-card {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--color-surface);
+  backdrop-filter: blur(14px) saturate(130%);
+  border: 1px solid transparent;
+  border-radius: inherit;
+  box-shadow:
+    0 1px 0 0 oklch(1 0 0 / 0.06) inset,
+    0 14px 30px -22px oklch(0 0 0 / 0.9);
+  transition:
+    transform 0.24s var(--glow-ease),
+    box-shadow 0.24s ease;
+}
+
+/* 1px gradient border via mask — brighter at the top edge. */
+@utility glow-card {
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      160deg,
+      color-mix(in oklab, var(--glow-primary-color) 42%, transparent),
+      oklch(1 0 0 / 0.07) 38%,
+      oklch(1 0 0 / 0.03) 70%,
+      color-mix(in oklab, var(--glow-cyan) 18%, transparent)
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    opacity: 0.65;
+    transition: opacity 0.24s ease;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Pointer spotlight (desktop only, driven by --mx/--my). */
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      170px circle at var(--mx, 50%) var(--my, 0%),
+      color-mix(in oklab, var(--glow-primary-color) 16%, transparent),
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.26s ease;
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .glow-card:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 1px 0 0 oklch(1 0 0 / 0.09) inset,
+      0 18px 40px -24px oklch(0 0 0 / 0.95),
+      0 0 26px -10px color-mix(in oklab, var(--glow-primary-color) 34%, transparent);
+  }
+  .glow-card:hover::before {
+    opacity: 1;
+  }
+  .glow-card:hover::after {
+    opacity: 1;
+  }
+}
+
+/* Touch: press illumination replaces hover. */
+.glow-card:active::before {
+  opacity: 1;
+}
+.glow-card:active::after {
+  opacity: 0.85;
+}
+
+/* Semantic tints for stat cards. */
+@utility glow-cool {
+  --glow-primary-color: oklch(0.72 0.12 210);
+}
+@utility glow-emerald {
+  --glow-primary-color: oklch(0.75 0.15 158);
+  --glow-cyan: oklch(0.75 0.15 158);
+}
+@utility glow-amber {
+  --glow-primary-color: oklch(0.8 0.14 82);
+  --glow-cyan: oklch(0.8 0.14 82);
+}
+
+/* Diffused illumination behind the balance amount. */
+@utility glow-halo {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    left: -8%;
+    top: -60%;
+    width: 70%;
+    height: 240%;
+    border-radius: 999px;
+    background: radial-gradient(
+      closest-side,
+      color-mix(in oklab, var(--glow-primary-color) 22%, transparent),
+      transparent 78%
+    );
+    filter: blur(14px);
+    pointer-events: none;
+    z-index: -1;
+  }
+}
+
+/* Floating action button — the strongest light source in the UI. */
+@utility glow-button {
+  position: relative;
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--glow-primary-color) 55%, transparent),
+    0 1px 0 0 oklch(1 0 0 / 0.28) inset,
+    0 -6px 12px -8px oklch(0 0 0 / 0.5) inset,
+    0 10px 24px -8px color-mix(in oklab, var(--glow-primary-color) 60%, transparent),
+    0 0 42px -12px color-mix(in oklab, var(--glow-primary-color) 55%, transparent);
+  transition:
+    box-shadow 0.26s ease,
+    transform 0.2s var(--glow-ease);
+
+  /* diffused light spilling underneath / behind the nav bar */
+  &::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 55%;
+    width: 190%;
+    height: 190%;
+    transform: translate(-50%, -50%);
+    border-radius: 999px;
+    background: radial-gradient(
+      closest-side,
+      color-mix(in oklab, var(--glow-primary-color) 30%, transparent),
+      transparent 72%
+    );
+    filter: blur(12px);
+    pointer-events: none;
+    z-index: -1;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .glow-button:hover {
+    box-shadow:
+      0 0 0 1px color-mix(in oklab, var(--glow-primary-color) 70%, transparent),
+      0 1px 0 0 oklch(1 0 0 / 0.34) inset,
+      0 12px 30px -8px color-mix(in oklab, var(--glow-primary-color) 72%, transparent),
+      0 0 58px -10px color-mix(in oklab, var(--glow-primary-color) 65%, transparent);
+  }
+}
+
+@keyframes glow-bloom {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--glow-primary-color) 45%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 18px color-mix(in oklab, var(--glow-primary-color) 0%, transparent);
+  }
+}
+
+@utility glow-bloom {
+  animation: glow-bloom 0.5s var(--glow-ease);
+}
+
+/* Active nav item illumination. */
+@utility glow-active {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 42%;
+    width: 132%;
+    height: 132%;
+    transform: translate(-50%, -50%);
+    border-radius: 999px;
+    background: radial-gradient(
+      closest-side,
+      color-mix(in oklab, var(--glow-primary-color) 26%, transparent),
+      transparent 72%
+    );
+    filter: blur(7px);
+    opacity: 1;
+    transition: opacity 0.24s ease;
+    pointer-events: none;
+    z-index: -1;
+  }
+}
+
+/* Understated illuminated dashed container. */
+@utility glow-dashed {
+  transition:
+    border-color 0.24s ease,
+    box-shadow 0.24s ease;
+  &:hover {
+    border-color: color-mix(in oklab, var(--glow-primary-color) 32%, transparent);
+    box-shadow: 0 0 24px -14px color-mix(in oklab, var(--glow-primary-color) 45%, transparent);
+  }
+}
+
+/* Chips and ghost surfaces wake up subtly on hover. */
+@utility glow-edge {
+  transition:
+    border-color 0.22s ease,
+    box-shadow 0.22s ease,
+    transform 0.22s var(--glow-ease);
+  &:hover {
+    border-color: color-mix(in oklab, var(--glow-primary-color) 38%, transparent);
+    box-shadow: 0 0 18px -12px color-mix(in oklab, var(--glow-primary-color) 55%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glow-card,
+  .glow-card::before,
+  .glow-card::after,
+  .glow-button,
+  .glow-active::before,
+  .glow-edge,
+  .glow-dashed {
+    transition: none;
+  }
+  .glow-card:hover {
+    transform: none;
+  }
+  .glow-bloom {
+    animation: none;
+  }
+}
