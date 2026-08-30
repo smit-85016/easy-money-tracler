@@ -299,17 +299,17 @@
   &::before {
     content: "";
     position: absolute;
-    left: -8%;
-    top: -60%;
-    width: 70%;
-    height: 240%;
+    left: -12%;
+    top: -70%;
+    width: 44%;
+    height: 260%;
     border-radius: 999px;
     background: radial-gradient(
       closest-side,
-      color-mix(in oklab, var(--glow-primary-color) 22%, transparent),
+      color-mix(in oklab, var(--glow-primary-color) 16%, transparent),
       transparent 78%
     );
-    filter: blur(14px);
+    filter: blur(18px);
     pointer-events: none;
     z-index: -1;
   }
