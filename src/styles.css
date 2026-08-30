@@ -5,7 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Paise — Midnight Glass design system.
+ * Tallyo — Midnight Glass design system.
  * Dark-first, frosted surfaces, single indigo accent.
  * All colors are oklch semantic tokens. Never hardcode colors in components.
  */
@@ -18,7 +18,7 @@
   --radius-2xl: calc(var(--radius) + 12px);
   --radius-3xl: calc(var(--radius) + 20px);
 
-  --font-sans: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Sora", ui-sans-serif, system-ui, sans-serif;
 
   --color-background: var(--background);
@@ -58,19 +58,19 @@
 :root {
   --radius: 1rem;
 
-  --background: oklch(0.145 0.017 274);
+  --background: oklch(0.132 0.018 268);
   --foreground: oklch(0.965 0.006 268);
 
-  --surface: oklch(0.215 0.021 269 / 0.72);
+  --surface: oklch(0.205 0.022 266 / 0.66);
   --surface-strong: oklch(0.235 0.024 269);
   --hairline: oklch(1 0 0 / 0.07);
 
-  --card: oklch(0.215 0.021 269 / 0.72);
+  --card: oklch(0.205 0.022 266 / 0.66);
   --card-foreground: oklch(0.965 0.006 268);
   --popover: oklch(0.205 0.02 269);
   --popover-foreground: oklch(0.965 0.006 268);
 
-  --primary: oklch(0.635 0.176 267);
+  --primary: oklch(0.655 0.168 259);
   --primary-foreground: oklch(0.145 0.017 274);
 
   --secondary: oklch(0.26 0.022 269);
@@ -91,9 +91,9 @@
 
   --border: oklch(1 0 0 / 0.09);
   --input: oklch(1 0 0 / 0.12);
-  --ring: oklch(0.635 0.176 267);
+  --ring: oklch(0.655 0.168 259);
 
-  --chart-1: oklch(0.635 0.176 267);
+  --chart-1: oklch(0.655 0.168 259);
   --chart-2: oklch(0.75 0.15 158);
   --chart-3: oklch(0.8 0.14 82);
   --chart-4: oklch(0.7 0.15 330);
@@ -131,6 +131,13 @@
       radial-gradient(60% 40% at 12% -8%, oklch(0.635 0.176 267 / 0.22), transparent 70%),
       radial-gradient(50% 35% at 100% 4%, oklch(0.72 0.12 210 / 0.14), transparent 70%),
       radial-gradient(46% 22% at 50% 102%, oklch(0.635 0.176 267 / 0.2), transparent 72%);
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.022em;
   }
 
   input,
@@ -186,7 +193,7 @@
 
 :root {
   --glow-primary: 217 91% 62%;
-  --glow-primary-color: oklch(0.635 0.176 267);
+  --glow-primary-color: oklch(0.655 0.168 259);
   --glow-cyan: oklch(0.72 0.12 210);
   --glow-success: oklch(0.75 0.15 158);
   --glow-warning: oklch(0.8 0.14 82);

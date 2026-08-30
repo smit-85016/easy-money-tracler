@@ -23,15 +23,15 @@ import { notificationPermission, requestNotifications } from "@/lib/reminders";
 export const Route = createFileRoute("/settings")({
   head: () => ({
     meta: [
-      { title: "Settings — Paise" },
+      { title: "Settings — Tallyo" },
       {
         name: "description",
-        content: "Manage your accounts and reminders in Paise. Everything stays on your device.",
+        content: "Manage your accounts and reminders in Tallyo. Everything stays on your device.",
       },
-      { property: "og:title", content: "Settings — Paise" },
+      { property: "og:title", content: "Settings — Tallyo" },
       {
         property: "og:description",
-        content: "Manage your accounts and reminders in Paise. Everything stays on your device.",
+        content: "Manage your accounts and reminders in Tallyo. Everything stays on your device.",
       },
     ],
   }),

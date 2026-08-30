@@ -16,12 +16,12 @@ import { formatMoney } from "@/lib/money";
 export const Route = createFileRoute("/friends")({
   head: () => ({
     meta: [
-      { title: "Friends — Paise" },
+      { title: "Friends — Tallyo" },
       {
         name: "description",
         content: "Track who owes you, what you owe, and settle up without touching your balance.",
       },
-      { property: "og:title", content: "Friends — Paise" },
+      { property: "og:title", content: "Friends — Tallyo" },
       {
         property: "og:description",
         content: "Track who owes you, what you owe, and settle up in one tap.",

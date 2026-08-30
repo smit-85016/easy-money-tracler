@@ -9,12 +9,12 @@ import { useSummary } from "@/lib/data";
 export const Route = createFileRoute("/insights")({
   head: () => ({
     meta: [
-      { title: "Insights — Paise" },
+      { title: "Insights — Tallyo" },
       {
         name: "description",
         content: "A one-glance monthly summary: received, spent, remaining and your top category.",
       },
-      { property: "og:title", content: "Insights — Paise" },
+      { property: "og:title", content: "Insights — Tallyo" },
       {
         property: "og:description",
         content: "Received, spent, remaining and your top spending category this month.",
