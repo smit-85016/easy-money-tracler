@@ -207,10 +207,8 @@
   transition:
     transform 0.24s var(--glow-ease),
     box-shadow 0.24s ease;
-}
 
-/* 1px gradient border via mask — brighter at the top edge. */
-@utility glow-card {
+  /* 1px gradient border via mask — brighter at the top edge. */
   &::before {
     content: "";
     position: absolute;
