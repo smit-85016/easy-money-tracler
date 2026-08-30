@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { MouseEvent, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { haptics } from "@/lib/haptics";
 
@@ -9,8 +9,22 @@ export function GlassCard({
   className?: string;
   children: ReactNode;
 }) {
-  return <div className={cn("glass rounded-3xl", className)}>{children}</div>;
+  // Desktop-only pointer spotlight: writes CSS vars consumed by .glow-card::after.
+  const onPointerMove = (event: MouseEvent<HTMLDivElement>) => {
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    const el = event.currentTarget;
+    const rect = el.getBoundingClientRect();
+    el.style.setProperty("--mx", `${((event.clientX - rect.left) / rect.width) * 100}%`);
+    el.style.setProperty("--my", `${((event.clientY - rect.top) / rect.height) * 100}%`);
+  };
+
+  return (
+    <div onMouseMove={onPointerMove} className={cn("glow-card rounded-3xl", className)}>
+      {children}
+    </div>
+  );
 }
+
 
 export function SectionLabel({ children, action }: { children: ReactNode; action?: ReactNode }) {
   return (
