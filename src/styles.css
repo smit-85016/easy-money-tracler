@@ -294,6 +294,7 @@
 /* Diffused illumination behind the balance amount. */
 @utility glow-halo {
   position: relative;
+  isolation: isolate;
   &::before {
     content: "";
     position: absolute;
@@ -316,6 +317,7 @@
 /* Floating action button — the strongest light source in the UI. */
 @utility glow-button {
   position: relative;
+  isolation: isolate;
   box-shadow:
     0 0 0 1px color-mix(in oklab, var(--glow-primary-color) 55%, transparent),
     0 1px 0 0 oklch(1 0 0 / 0.28) inset,
@@ -373,6 +375,7 @@
 /* Active nav item illumination. */
 @utility glow-active {
   position: relative;
+  isolation: isolate;
   &::before {
     content: "";
     position: absolute;
