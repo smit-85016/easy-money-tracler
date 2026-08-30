@@ -1,6 +1,6 @@
 {
-  "name": "Paise — Money Tracker",
-  "short_name": "Paise",
+  "name": "Tallyo — Money Tracker",
+  "short_name": "Tallyo",
   "description": "Track expenses, splits and settlements with friends.",
   "start_url": "/",
   "display": "standalone",

@@ -30,12 +30,12 @@ import { REMINDER_PRESETS, inDays, notificationPermission, requestNotifications 
 export const Route = createFileRoute("/friends/$friendId")({
   head: () => ({
     meta: [
-      { title: "Friend Ledger — Paise" },
+      { title: "Friend Ledger — Tallyo" },
       {
         name: "description",
         content: "Payment history with one friend, with reminders and one-tap settle.",
       },
-      { property: "og:title", content: "Friend Ledger — Paise" },
+      { property: "og:title", content: "Friend Ledger — Tallyo" },
       {
         property: "og:description",
         content: "Payment history with one friend, with reminders and one-tap settle.",

@@ -81,16 +81,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         name: "viewport",
         content: "width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1",
       },
-      { title: "Paise — Simple Money Tracker" },
+      { title: "Tallyo — Simple Money Tracker" },
       {
         name: "description",
         content:
-          "Paise is a minimal money tracker: log spending in seconds, see your real balance, and track what friends owe you.",
+          "Tallyo is a minimal money tracker: log spending in seconds, see your real balance, and track what friends owe you.",
       },
       { name: "theme-color", content: "#0A0B10" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
-      { name: "apple-mobile-web-app-title", content: "Paise" },
-      { property: "og:title", content: "Paise — Simple Money Tracker" },
+      { name: "apple-mobile-web-app-title", content: "Tallyo" },
+      { property: "og:title", content: "Tallyo — Simple Money Tracker" },
       {
         property: "og:description",
         content: "Log spending in seconds, see your real balance, track friend settlements.",

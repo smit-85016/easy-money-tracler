@@ -9,13 +9,13 @@ import { formatMoney } from "@/lib/money";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Paise — Your Balance At A Glance" },
+      { title: "Tallyo — Your Balance At A Glance" },
       {
         name: "description",
         content:
           "See available balance, spending this month, and pending friend settlements on one calm screen.",
       },
-      { property: "og:title", content: "Paise — Your Balance At A Glance" },
+      { property: "og:title", content: "Tallyo — Your Balance At A Glance" },
       {
         property: "og:description",
         content: "Available balance, monthly spend and friend settlements in one calm screen.",
@@ -32,7 +32,7 @@ function HomePage() {
   const greeting = new Date().getHours() < 12 ? "Good morning" : new Date().getHours() < 18 ? "Good afternoon" : "Good evening";
 
   return (
-    <AppShell title="Paise" subtitle={greeting}>
+    <AppShell title="Tallyo" subtitle={greeting}>
       <GlassCard className="px-6 py-7">
         <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
           Available Balance

@@ -28,12 +28,12 @@ import {
 export const Route = createFileRoute("/transactions")({
   head: () => ({
     meta: [
-      { title: "Activity — Paise" },
+      { title: "Activity — Tallyo" },
       {
         name: "description",
         content: "A clean timeline of everything you spent, received and transferred.",
       },
-      { property: "og:title", content: "Activity — Paise" },
+      { property: "og:title", content: "Activity — Tallyo" },
       {
         property: "og:description",
         content: "A clean timeline of everything you spent, received and transferred.",
