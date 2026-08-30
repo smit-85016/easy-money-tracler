@@ -133,6 +133,13 @@
       radial-gradient(46% 22% at 50% 102%, oklch(0.635 0.176 267 / 0.2), transparent 72%);
   }
 
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.022em;
+  }
+
   input,
   button,
   select,
