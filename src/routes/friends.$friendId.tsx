@@ -51,7 +51,6 @@ function FriendDetail() {
   const [amount, setAmount] = useState("");
   const [label, setLabel] = useState("");
   const [direction, setDirection] = useState<"to_receive" | "to_pay">("to_receive");
-  const [reminderFor, setReminderFor] = useState<LedgerEntry | null>(null);
 
   const friend = friends.find((f) => f.id === friendId);
   const entries = ledger.filter((e) => e.friend_id === friendId);
@@ -146,9 +145,6 @@ function FriendDetail() {
                         month: "short",
                       })}
                       {entry.settled_at ? " · settled" : ""}
-                      {!entry.settled_at && entry.remind_at
-                        ? ` · reminder ${new Date(entry.remind_at).toLocaleDateString("en-IN", { day: "numeric", month: "short" })}`
-                        : ""}
                     </p>
                   </div>
                   <p
