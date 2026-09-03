@@ -1,16 +1,13 @@
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, BellRing, Check, Trash2 } from "lucide-react";
+import { ArrowLeft, Check, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { AppShell } from "@/components/app-shell";
-import { BottomSheet } from "@/components/bottom-sheet";
 import {
   Chip,
   EmptyState,
-  FieldRow,
   GhostButton,
   GlassCard,
-  PrimaryButton,
   SectionLabel,
   TextField,
 } from "@/components/primitives";
@@ -23,9 +20,7 @@ import {
   useLedger,
   useSaveLedgerEntry,
   useUpdateLedgerEntry,
-  type LedgerEntry,
 } from "@/lib/data";
-import { REMINDER_PRESETS, inDays, notificationPermission, requestNotifications } from "@/lib/reminders";
 
 export const Route = createFileRoute("/friends/$friendId")({
   head: () => ({
