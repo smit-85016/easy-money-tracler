@@ -1,16 +1,13 @@
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, BellRing, Check, Trash2 } from "lucide-react";
+import { ArrowLeft, Check, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { AppShell } from "@/components/app-shell";
-import { BottomSheet } from "@/components/bottom-sheet";
 import {
   Chip,
   EmptyState,
-  FieldRow,
   GhostButton,
   GlassCard,
-  PrimaryButton,
   SectionLabel,
   TextField,
 } from "@/components/primitives";
@@ -23,9 +20,7 @@ import {
   useLedger,
   useSaveLedgerEntry,
   useUpdateLedgerEntry,
-  type LedgerEntry,
 } from "@/lib/data";
-import { REMINDER_PRESETS, inDays, notificationPermission, requestNotifications } from "@/lib/reminders";
 
 export const Route = createFileRoute("/friends/$friendId")({
   head: () => ({
@@ -33,12 +28,12 @@ export const Route = createFileRoute("/friends/$friendId")({
       { title: "Friend Ledger — Tallyo" },
       {
         name: "description",
-        content: "Payment history with one friend, with reminders and one-tap settle.",
+        content: "Payment history with one friend, with one-tap settle.",
       },
       { property: "og:title", content: "Friend Ledger — Tallyo" },
       {
         property: "og:description",
-        content: "Payment history with one friend, with reminders and one-tap settle.",
+        content: "Payment history with one friend, with one-tap settle.",
       },
     ],
   }),
@@ -56,7 +51,6 @@ function FriendDetail() {
   const [amount, setAmount] = useState("");
   const [label, setLabel] = useState("");
   const [direction, setDirection] = useState<"to_receive" | "to_pay">("to_receive");
-  const [reminderFor, setReminderFor] = useState<LedgerEntry | null>(null);
 
   const friend = friends.find((f) => f.id === friendId);
   const entries = ledger.filter((e) => e.friend_id === friendId);
@@ -151,9 +145,6 @@ function FriendDetail() {
                         month: "short",
                       })}
                       {entry.settled_at ? " · settled" : ""}
-                      {!entry.settled_at && entry.remind_at
-                        ? ` · reminder ${new Date(entry.remind_at).toLocaleDateString("en-IN", { day: "numeric", month: "short" })}`
-                        : ""}
                     </p>
                   </div>
                   <p
@@ -188,12 +179,6 @@ function FriendDetail() {
                       >
                         <Check className="size-3.5" /> Settle
                       </GhostButton>
-                      <GhostButton
-                        className="flex items-center gap-1.5 px-3 py-2 text-[13px]"
-                        onClick={() => setReminderFor(entry)}
-                      >
-                        <BellRing className="size-3.5" /> Remind
-                      </GhostButton>
                     </>
                   ) : (
                     <GhostButton
@@ -222,63 +207,6 @@ function FriendDetail() {
           </GlassCard>
         )}
       </div>
-
-      <ReminderSheet entry={reminderFor} onClose={() => setReminderFor(null)} />
     </AppShell>
-  );
-}
-
-function ReminderSheet({ entry, onClose }: { entry: LedgerEntry | null; onClose: () => void }) {
-  const updateEntry = useUpdateLedgerEntry();
-  const [customDate, setCustomDate] = useState("");
-
-  const apply = async (iso: string) => {
-    if (notificationPermission() === "default") await requestNotifications();
-    if (!entry) return;
-    updateEntry.mutate(
-      { id: entry.id, remind_at: iso },
-      {
-        onSuccess: () => {
-          haptics.confirm();
-          toast.success(
-            `Reminder set for ${new Date(iso).toLocaleDateString("en-IN", { day: "numeric", month: "short" })}`,
-          );
-          onClose();
-        },
-        onError: (error) => toast.error(error.message),
-      },
-    );
-  };
-
-  return (
-    <BottomSheet open={!!entry} onClose={onClose} title="Remind me">
-      <div className="space-y-4 pb-2">
-        <div className="flex flex-wrap gap-2">
-          {REMINDER_PRESETS.map((preset) => (
-            <Chip key={preset.id} onClick={() => void apply(inDays(preset.days))}>
-              {preset.label}
-            </Chip>
-          ))}
-        </div>
-        <FieldRow label="Custom date">
-          <TextField
-            type="date"
-            value={customDate}
-            onChange={(e) => setCustomDate(e.target.value)}
-          />
-        </FieldRow>
-        <PrimaryButton
-          disabled={!customDate}
-          onClick={() => void apply(new Date(`${customDate}T10:00:00`).toISOString())}
-        >
-          Set Reminder
-        </PrimaryButton>
-        {notificationPermission() === "denied" ? (
-          <p className="text-[12px] text-muted-foreground">
-            Notifications are blocked in your browser, so reminders will show inside the app only.
-          </p>
-        ) : null}
-      </div>
-    </BottomSheet>
   );
 }
