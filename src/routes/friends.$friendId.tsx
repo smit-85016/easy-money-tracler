@@ -179,12 +179,6 @@ function FriendDetail() {
                       >
                         <Check className="size-3.5" /> Settle
                       </GhostButton>
-                      <GhostButton
-                        className="flex items-center gap-1.5 px-3 py-2 text-[13px]"
-                        onClick={() => setReminderFor(entry)}
-                      >
-                        <BellRing className="size-3.5" /> Remind
-                      </GhostButton>
                     </>
                   ) : (
                     <GhostButton
@@ -213,63 +207,6 @@ function FriendDetail() {
           </GlassCard>
         )}
       </div>
-
-      <ReminderSheet entry={reminderFor} onClose={() => setReminderFor(null)} />
     </AppShell>
-  );
-}
-
-function ReminderSheet({ entry, onClose }: { entry: LedgerEntry | null; onClose: () => void }) {
-  const updateEntry = useUpdateLedgerEntry();
-  const [customDate, setCustomDate] = useState("");
-
-  const apply = async (iso: string) => {
-    if (notificationPermission() === "default") await requestNotifications();
-    if (!entry) return;
-    updateEntry.mutate(
-      { id: entry.id, remind_at: iso },
-      {
-        onSuccess: () => {
-          haptics.confirm();
-          toast.success(
-            `Reminder set for ${new Date(iso).toLocaleDateString("en-IN", { day: "numeric", month: "short" })}`,
-          );
-          onClose();
-        },
-        onError: (error) => toast.error(error.message),
-      },
-    );
-  };
-
-  return (
-    <BottomSheet open={!!entry} onClose={onClose} title="Remind me">
-      <div className="space-y-4 pb-2">
-        <div className="flex flex-wrap gap-2">
-          {REMINDER_PRESETS.map((preset) => (
-            <Chip key={preset.id} onClick={() => void apply(inDays(preset.days))}>
-              {preset.label}
-            </Chip>
-          ))}
-        </div>
-        <FieldRow label="Custom date">
-          <TextField
-            type="date"
-            value={customDate}
-            onChange={(e) => setCustomDate(e.target.value)}
-          />
-        </FieldRow>
-        <PrimaryButton
-          disabled={!customDate}
-          onClick={() => void apply(new Date(`${customDate}T10:00:00`).toISOString())}
-        >
-          Set Reminder
-        </PrimaryButton>
-        {notificationPermission() === "denied" ? (
-          <p className="text-[12px] text-muted-foreground">
-            Notifications are blocked in your browser, so reminders will show inside the app only.
-          </p>
-        ) : null}
-      </div>
-    </BottomSheet>
   );
 }
