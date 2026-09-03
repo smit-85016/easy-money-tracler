@@ -4,8 +4,6 @@ import { Home, Receipt, Users, PieChart, Plus, ArrowDownLeft, ArrowUpRight, Spli
 import { BottomSheet } from "@/components/bottom-sheet";
 import { QuickAddSheet, type QuickAddMode } from "@/components/quick-add";
 import { haptics } from "@/lib/haptics";
-import { useFriends, useLedger } from "@/lib/data";
-import { useReminderWatcher } from "@/lib/reminders";
 import { cn } from "@/lib/utils";
 
 const NAV = [
@@ -35,9 +33,6 @@ export function AppShell({
   const [menuOpen, setMenuOpen] = useState(false);
   const [mode, setMode] = useState<QuickAddMode | null>(null);
   const [bloom, setBloom] = useState(false);
-  const { data: ledger = [] } = useLedger();
-  const { data: friends = [] } = useFriends();
-  useReminderWatcher(ledger, friends);
 
   return (
     <div className="mx-auto min-h-screen w-full max-w-md px-5 pb-32 pt-8">
