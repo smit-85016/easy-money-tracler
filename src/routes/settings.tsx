@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { BellRing, Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { AppShell } from "@/components/app-shell";
 import {
@@ -18,7 +18,6 @@ import {
   useTransactions,
 } from "@/lib/data";
 import { formatMoney } from "@/lib/money";
-import { notificationPermission, requestNotifications } from "@/lib/reminders";
 
 export const Route = createFileRoute("/settings")({
   head: () => ({
@@ -26,12 +25,12 @@ export const Route = createFileRoute("/settings")({
       { title: "Settings — Tallyo" },
       {
         name: "description",
-        content: "Manage your accounts and reminders in Tallyo. Everything stays on your device.",
+        content: "Manage your accounts in Tallyo. Everything stays on your device.",
       },
       { property: "og:title", content: "Settings — Tallyo" },
       {
         property: "og:description",
-        content: "Manage your accounts and reminders in Tallyo. Everything stays on your device.",
+        content: "Manage your accounts in Tallyo. Everything stays on your device.",
       },
     ],
   }),
@@ -51,7 +50,6 @@ function SettingsPage() {
   const resetData = useResetAllData();
   const [name, setName] = useState("");
   const [kind, setKind] = useState<(typeof KINDS)[number]["id"]>("bank");
-  const [permission, setPermission] = useState(notificationPermission());
 
   const submitAccount = async () => {
     const trimmed = name.trim();
@@ -96,30 +94,6 @@ function SettingsPage() {
             <Plus className="size-4" />
           </GhostButton>
         </div>
-      </div>
-
-      <div className="mt-8">
-        <SectionLabel>Reminders</SectionLabel>
-        <GlassCard className="px-5 py-4">
-          <p className="text-[13px] text-muted-foreground">
-            {permission === "granted"
-              ? "Notifications are on. You'll be nudged when a payment is due."
-              : permission === "denied"
-                ? "Notifications are blocked in your browser. Reminders still show inside the app."
-                : "Allow notifications to get nudged when a payment is due."}
-          </p>
-          {permission !== "granted" && permission !== "denied" ? (
-            <GhostButton
-              className="mt-3 flex items-center gap-2"
-              onClick={async () => {
-                await requestNotifications();
-                setPermission(notificationPermission());
-              }}
-            >
-              <BellRing className="size-4" /> Enable Reminders
-            </GhostButton>
-          ) : null}
-        </GlassCard>
       </div>
 
       <div className="mt-8">
