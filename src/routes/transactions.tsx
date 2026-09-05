@@ -101,15 +101,13 @@ function EditSheet({ tx, onClose }: { tx: Transaction | null; onClose: () => voi
   const save = useSaveTransaction();
   const remove = useDeleteTransaction();
   const [amount, setAmount] = useState("");
-  const [description, setDescription] = useState("");
   const [note, setNote] = useState("");
   const [loadedId, setLoadedId] = useState<string | null>(null);
 
   if (tx && loadedId !== tx.id) {
     setLoadedId(tx.id);
     setAmount(String(tx.amount / 100));
-    setDescription(tx.description ?? tx.source ?? "");
-    setNote(tx.note ?? "");
+    setNote(tx.note ?? tx.description ?? tx.source ?? "");
   }
 
   if (!tx) return <BottomSheet open={false} onClose={onClose}>{null}</BottomSheet>;
@@ -120,16 +118,18 @@ function EditSheet({ tx, onClose }: { tx: Transaction | null; onClose: () => voi
     <BottomSheet open onClose={onClose} title={`Edit · ${meta.label}`}>
       <AmountField value={amount} onChange={setAmount} />
       <div className="space-y-4">
-        <FieldRow label={tx.kind === "income" ? "Source" : "Description"}>
-          <TextField value={description} onChange={(e) => setDescription(e.target.value)} />
-        </FieldRow>
         <FieldRow label="Note">
-          <TextField value={note} onChange={(e) => setNote(e.target.value)} />
+          <TextField
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            placeholder="Add a note (optional)"
+          />
         </FieldRow>
         <PrimaryButton
           onClick={() => {
             const paise = toPaise(amount);
             if (paise <= 0) { toast.error("Enter an amount"); return; }
+            const text = note.trim() || null;
             save.mutate(
               {
                 id: tx.id,
@@ -139,11 +139,12 @@ function EditSheet({ tx, onClose }: { tx: Transaction | null; onClose: () => voi
                 account_id: tx.account_id,
                 to_account_id: tx.to_account_id,
                 occurred_at: tx.occurred_at,
-                note: note.trim() || null,
+                note: text,
                 ...(tx.kind === "income"
-                  ? { source: description.trim() || null }
-                  : { description: description.trim() || null }),
+                  ? { source: text ?? tx.source ?? null }
+                  : { description: text }),
               },
+
               {
                 onSuccess: () => {
                   haptics.confirm();
