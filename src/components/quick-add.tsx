@@ -112,10 +112,10 @@ function ExpenseForm({ onDone }: { onDone: () => void }) {
   const defaultAccount = useDefaultAccount();
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("food");
-  const [description, setDescription] = useState("");
   const [accountId, setAccountId] = useState<string | null>(null);
   const [date, setDate] = useState(todayLocal());
   const [note, setNote] = useState("");
+
   const [customCategory, setCustomCategory] = useState("");
   const save = useSaveTransaction();
 
