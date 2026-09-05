@@ -10,7 +10,6 @@ import {
   SectionLabel,
   TextField,
 } from "@/components/primitives";
-import { Switch } from "@/components/ui/switch";
 import {
   accountBalance,
   useAccounts,
