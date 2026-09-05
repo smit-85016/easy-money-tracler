@@ -358,6 +358,34 @@ export function useAddAccount() {
   });
 }
 
+/**
+ * Rename an account and/or set its current balance.
+ * `balance` is the balance the user wants to see, so the opening balance is
+ * adjusted by the difference the existing transactions already contribute.
+ */
+export function useUpdateAccount() {
+  const invalidate = useInvalidateAll();
+  return useMutation({
+    mutationFn: async (input: { id: string; name?: string; balance?: number }) => {
+      writeStore((data) => {
+        data.accounts = data.accounts.map((account) => {
+          if (account.id !== input.id) return account;
+          const next = { ...account };
+          if (input.name && input.name.trim()) next.name = input.name.trim();
+          if (typeof input.balance === "number") {
+            const activity = accountBalance(account, data.transactions) - account.opening_balance;
+            next.opening_balance = input.balance - activity;
+          }
+          return next;
+        });
+        return data;
+      });
+    },
+    onSuccess: invalidate,
+  });
+}
+
+
 export function useResetAllData() {
   const invalidate = useInvalidateAll();
   return useMutation({

@@ -100,7 +100,50 @@
   --chart-5: oklch(0.72 0.12 210);
 }
 
-/* Midnight Glass is dark-first by design: no light override. */
+/* Light theme — applied when the root <html> element has no `dark` class. */
+html:not(.dark) {
+  --background: oklch(0.985 0.004 268);
+  --foreground: oklch(0.205 0.02 268);
+
+  --surface: oklch(1 0 0 / 0.82);
+  --surface-strong: oklch(1 0 0);
+  --hairline: oklch(0.2 0.02 268 / 0.08);
+
+  --card: oklch(1 0 0 / 0.86);
+  --card-foreground: oklch(0.205 0.02 268);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.205 0.02 268);
+
+  --primary: oklch(0.56 0.18 259);
+  --primary-foreground: oklch(0.99 0.004 268);
+
+  --secondary: oklch(0.955 0.008 268);
+  --secondary-foreground: oklch(0.28 0.022 268);
+
+  --muted: oklch(0.955 0.008 268);
+  --muted-foreground: oklch(0.505 0.022 266);
+
+  --accent: oklch(0.93 0.014 268);
+  --accent-foreground: oklch(0.24 0.02 268);
+
+  --destructive: oklch(0.58 0.19 22);
+  --destructive-foreground: oklch(0.99 0.004 268);
+
+  --positive: oklch(0.6 0.14 158);
+  --positive-foreground: oklch(0.99 0.004 268);
+  --warning: oklch(0.68 0.13 72);
+
+  --border: oklch(0.2 0.02 268 / 0.1);
+  --input: oklch(0.2 0.02 268 / 0.14);
+  --ring: oklch(0.56 0.18 259);
+}
+
+html:not(.dark) body::before {
+  background:
+    radial-gradient(60% 40% at 12% -8%, oklch(0.635 0.176 267 / 0.12), transparent 70%),
+    radial-gradient(50% 35% at 100% 4%, oklch(0.72 0.12 210 / 0.08), transparent 70%),
+    radial-gradient(46% 22% at 50% 102%, oklch(0.635 0.176 267 / 0.1), transparent 72%);
+}
 
 @layer base {
   * {
@@ -111,6 +154,11 @@
     color-scheme: dark;
     -webkit-tap-highlight-color: transparent;
   }
+
+  html:not(.dark) {
+    color-scheme: light;
+  }
+
 
   body {
     background-color: var(--color-background);
