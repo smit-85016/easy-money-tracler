@@ -112,10 +112,10 @@ function ExpenseForm({ onDone }: { onDone: () => void }) {
   const defaultAccount = useDefaultAccount();
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("food");
-  const [description, setDescription] = useState("");
   const [accountId, setAccountId] = useState<string | null>(null);
   const [date, setDate] = useState(todayLocal());
   const [note, setNote] = useState("");
+
   const [customCategory, setCustomCategory] = useState("");
   const save = useSaveTransaction();
 
@@ -172,11 +172,11 @@ function ExpenseForm({ onDone }: { onDone: () => void }) {
       </div>
 
       <MoreDetails>
-        <FieldRow label="Description">
+        <FieldRow label="Note">
           <TextField
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="Power Bank"
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            placeholder="Add a note (optional)"
           />
         </FieldRow>
         <AccountChips value={accountId ?? defaultAccount} onChange={setAccountId} />
@@ -190,10 +190,8 @@ function ExpenseForm({ onDone }: { onDone: () => void }) {
             placeholder="e.g. Gifts"
           />
         </FieldRow>
-        <FieldRow label="Note">
-          <TextField value={note} onChange={(e) => setNote(e.target.value)} placeholder="Optional" />
-        </FieldRow>
       </MoreDetails>
+
 
       <div className="mt-5">
         <PrimaryButton onClick={submit} disabled={save.isPending}>
