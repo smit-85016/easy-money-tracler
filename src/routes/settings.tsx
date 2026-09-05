@@ -92,13 +92,25 @@ function SettingsPage() {
             <Moon className="size-4 shrink-0 text-muted-foreground" />
             <p className="truncate text-[15px] font-medium">Dark Mode</p>
           </div>
-          <Switch
-            checked={isDark}
-            onCheckedChange={(next) => setTheme(next ? "dark" : "light")}
+          <button
+            type="button"
+            role="switch"
+            aria-checked={isDark}
             aria-label="Toggle dark mode"
-          />
+            onClick={() => setTheme(isDark ? "light" : "dark")}
+            className={`press glow-edge relative h-7 w-12 shrink-0 rounded-full border transition-colors duration-200 ${
+              isDark ? "border-primary/60 bg-primary/70" : "border-border bg-secondary"
+            }`}
+          >
+            <span
+              className={`absolute top-0.5 size-6 rounded-full bg-background shadow-float transition-[left] duration-200 ${
+                isDark ? "left-[1.375rem]" : "left-0.5"
+              }`}
+            />
+          </button>
         </div>
       </GlassCard>
+
 
       <SectionLabel>Accounts</SectionLabel>
       <GlassCard className="divide-y divide-border p-2">
