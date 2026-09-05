@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Plus, Trash2 } from "lucide-react";
+import { Check, Moon, Pencil, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { AppShell } from "@/components/app-shell";
 import {
@@ -10,14 +10,17 @@ import {
   SectionLabel,
   TextField,
 } from "@/components/primitives";
+import { Switch } from "@/components/ui/switch";
 import {
   accountBalance,
   useAccounts,
   useAddAccount,
   useResetAllData,
   useTransactions,
+  useUpdateAccount,
 } from "@/lib/data";
-import { formatMoney } from "@/lib/money";
+import { formatMoney, toPaise } from "@/lib/money";
+import { useTheme } from "@/lib/theme";
 
 export const Route = createFileRoute("/settings")({
   head: () => ({
@@ -47,9 +50,14 @@ function SettingsPage() {
   const { data: accounts = [] } = useAccounts();
   const { data: transactions = [] } = useTransactions();
   const addAccount = useAddAccount();
+  const updateAccount = useUpdateAccount();
   const resetData = useResetAllData();
+  const { isDark, setTheme } = useTheme();
   const [name, setName] = useState("");
   const [kind, setKind] = useState<(typeof KINDS)[number]["id"]>("bank");
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [draftName, setDraftName] = useState("");
+  const [draftAmount, setDraftAmount] = useState("");
 
   const submitAccount = async () => {
     const trimmed = name.trim();
@@ -59,22 +67,92 @@ function SettingsPage() {
     toast.success(`${trimmed} added`);
   };
 
+  const startEdit = (accountId: string, accountName: string, balance: number) => {
+    setEditingId(accountId);
+    setDraftName(accountName);
+    setDraftAmount((balance / 100).toFixed(2));
+  };
+
+  const saveEdit = async (accountId: string) => {
+    await updateAccount.mutateAsync({
+      id: accountId,
+      name: draftName,
+      balance: toPaise(draftAmount),
+    });
+    setEditingId(null);
+    toast.success("Account updated");
+  };
+
   return (
     <AppShell title="Settings" subtitle="Saved on this device">
+      <SectionLabel>Appearance</SectionLabel>
+      <GlassCard className="mb-6 px-5 py-4">
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex min-w-0 items-center gap-3">
+            <Moon className="size-4 shrink-0 text-muted-foreground" />
+            <p className="truncate text-[15px] font-medium">Dark Mode</p>
+          </div>
+          <Switch
+            checked={isDark}
+            onCheckedChange={(next) => setTheme(next ? "dark" : "light")}
+            aria-label="Toggle dark mode"
+          />
+        </div>
+      </GlassCard>
+
       <SectionLabel>Accounts</SectionLabel>
       <GlassCard className="divide-y divide-border p-2">
-        {accounts.map((account) => (
-          <div key={account.id} className="flex items-center justify-between px-2 py-3">
-            <div>
-              <p className="text-[15px] font-medium">{account.name}</p>
-              <p className="text-[12px] capitalize text-muted-foreground">{account.kind}</p>
+        {accounts.map((account) => {
+          const balance = accountBalance(account, transactions);
+          const editing = editingId === account.id;
+          return (
+            <div key={account.id} className="flex items-center gap-3 px-2 py-3">
+              {editing ? (
+                <>
+                  <TextField
+                    value={draftName}
+                    onChange={(e) => setDraftName(e.target.value)}
+                    className="min-w-0 flex-1 px-3 py-2 text-sm"
+                    placeholder="Account name"
+                  />
+                  <TextField
+                    inputMode="decimal"
+                    value={draftAmount}
+                    onChange={(e) => setDraftAmount(e.target.value.replace(/[^\d.]/g, ""))}
+                    className="numeric w-24 shrink-0 px-3 py-2 text-right text-sm"
+                    placeholder="0"
+                  />
+                  <GhostButton
+                    className="shrink-0 px-3 py-2"
+                    aria-label="Save account"
+                    onClick={() => void saveEdit(account.id)}
+                  >
+                    <Check className="size-4" />
+                  </GhostButton>
+                </>
+              ) : (
+                <>
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-[15px] font-medium">{account.name}</p>
+                    <p className="text-[12px] capitalize text-muted-foreground">{account.kind}</p>
+                  </div>
+                  <p className="numeric shrink-0 text-[15px] font-semibold">
+                    {formatMoney(balance)}
+                  </p>
+                  <GhostButton
+                    className="shrink-0 px-3 py-2"
+                    aria-label={`Edit ${account.name}`}
+                    onClick={() => startEdit(account.id, account.name, balance)}
+                  >
+                    <Pencil className="size-4" />
+                  </GhostButton>
+                </>
+              )}
             </div>
-            <p className="numeric text-[15px] font-semibold">
-              {formatMoney(accountBalance(account, transactions))}
-            </p>
-          </div>
-        ))}
+          );
+        })}
       </GlassCard>
+
 
       <div className="mt-4 space-y-3">
         <div className="flex gap-2">
