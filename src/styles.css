@@ -1,0 +1,496 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Worth — Midnight Glass design system.
+ * Dark-first, frosted surfaces, single indigo accent.
+ * All colors are oklch semantic tokens. Never hardcode colors in components.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 6px);
+  --radius-md: calc(var(--radius) - 3px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 6px);
+  --radius-2xl: calc(var(--radius) + 12px);
+  --radius-3xl: calc(var(--radius) + 20px);
+
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Sora", ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-positive: var(--positive);
+  --color-positive-foreground: var(--positive-foreground);
+  --color-warning: var(--warning);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --shadow-glass: 0 1px 0 0 var(--hairline) inset, 0 18px 40px -24px oklch(0 0 0 / 0.75);
+  --shadow-float: 0 20px 45px -18px oklch(0.62 0.19 268 / 0.55);
+}
+
+:root {
+  --radius: 1rem;
+
+  --background: oklch(0.132 0.018 268);
+  --foreground: oklch(0.965 0.006 268);
+
+  --surface: oklch(0.205 0.022 266 / 0.66);
+  --surface-strong: oklch(0.235 0.024 269);
+  --hairline: oklch(1 0 0 / 0.07);
+
+  --card: oklch(0.205 0.022 266 / 0.66);
+  --card-foreground: oklch(0.965 0.006 268);
+  --popover: oklch(0.205 0.02 269);
+  --popover-foreground: oklch(0.965 0.006 268);
+
+  --primary: oklch(0.655 0.168 259);
+  --primary-foreground: oklch(0.145 0.017 274);
+
+  --secondary: oklch(0.26 0.022 269);
+  --secondary-foreground: oklch(0.94 0.008 268);
+
+  --muted: oklch(0.26 0.022 269);
+  --muted-foreground: oklch(0.715 0.026 266);
+
+  --accent: oklch(0.3 0.03 269);
+  --accent-foreground: oklch(0.965 0.006 268);
+
+  --destructive: oklch(0.67 0.185 20);
+  --destructive-foreground: oklch(0.145 0.017 274);
+
+  --positive: oklch(0.75 0.15 158);
+  --positive-foreground: oklch(0.145 0.017 274);
+  --warning: oklch(0.8 0.14 82);
+
+  --border: oklch(1 0 0 / 0.09);
+  --input: oklch(1 0 0 / 0.12);
+  --ring: oklch(0.655 0.168 259);
+
+  --chart-1: oklch(0.655 0.168 259);
+  --chart-2: oklch(0.75 0.15 158);
+  --chart-3: oklch(0.8 0.14 82);
+  --chart-4: oklch(0.7 0.15 330);
+  --chart-5: oklch(0.72 0.12 210);
+}
+
+/* Light theme — applied when the root <html> element has no `dark` class. */
+html:not(.dark) {
+  --background: oklch(0.985 0.004 268);
+  --foreground: oklch(0.205 0.02 268);
+
+  --surface: oklch(1 0 0 / 0.82);
+  --surface-strong: oklch(1 0 0);
+  --hairline: oklch(0.2 0.02 268 / 0.08);
+
+  --card: oklch(1 0 0 / 0.86);
+  --card-foreground: oklch(0.205 0.02 268);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.205 0.02 268);
+
+  --primary: oklch(0.56 0.18 259);
+  --primary-foreground: oklch(0.99 0.004 268);
+
+  --secondary: oklch(0.955 0.008 268);
+  --secondary-foreground: oklch(0.28 0.022 268);
+
+  --muted: oklch(0.955 0.008 268);
+  --muted-foreground: oklch(0.505 0.022 266);
+
+  --accent: oklch(0.93 0.014 268);
+  --accent-foreground: oklch(0.24 0.02 268);
+
+  --destructive: oklch(0.58 0.19 22);
+  --destructive-foreground: oklch(0.99 0.004 268);
+
+  --positive: oklch(0.6 0.14 158);
+  --positive-foreground: oklch(0.99 0.004 268);
+  --warning: oklch(0.68 0.13 72);
+
+  --border: oklch(0.2 0.02 268 / 0.1);
+  --input: oklch(0.2 0.02 268 / 0.14);
+  --ring: oklch(0.56 0.18 259);
+}
+
+html:not(.dark) body::before {
+  background:
+    radial-gradient(60% 40% at 12% -8%, oklch(0.635 0.176 267 / 0.12), transparent 70%),
+    radial-gradient(50% 35% at 100% 4%, oklch(0.72 0.12 210 / 0.08), transparent 70%),
+    radial-gradient(46% 22% at 50% 102%, oklch(0.635 0.176 267 / 0.1), transparent 72%);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    color-scheme: dark;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html:not(.dark) {
+    color-scheme: light;
+  }
+
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    letter-spacing: -0.011em;
+    overscroll-behavior-y: none;
+  }
+
+  /* Ambient aurora backdrop — subtle, no loud gradients. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background:
+      radial-gradient(60% 40% at 12% -8%, oklch(0.635 0.176 267 / 0.22), transparent 70%),
+      radial-gradient(50% 35% at 100% 4%, oklch(0.72 0.12 210 / 0.14), transparent 70%),
+      radial-gradient(46% 22% at 50% 102%, oklch(0.635 0.176 267 / 0.2), transparent 72%);
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.022em;
+  }
+
+  input,
+  button,
+  select,
+  textarea {
+    font-family: inherit;
+  }
+}
+
+@utility glass {
+  background-color: var(--color-surface);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-glass);
+}
+
+@utility numeric {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+@utility press {
+  transition:
+    transform 75ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 75ms ease;
+}
+
+@utility press-active {
+  transform: scale(0.95);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@utility rise {
+  animation: rise 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ───────────────────────────────────────────────────────────
+   Ambient lighting system — restrained, premium fintech glow.
+   Tokens drive every glow so effects stay consistent.
+   ─────────────────────────────────────────────────────────── */
+
+:root {
+  --glow-primary: 217 91% 62%;
+  --glow-primary-color: oklch(0.655 0.168 259);
+  --glow-cyan: oklch(0.72 0.12 210);
+  --glow-success: oklch(0.75 0.15 158);
+  --glow-warning: oklch(0.8 0.14 82);
+  --glow-opacity: 0.4;
+  --glow-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Premium dark-glass surface with gradient edge light + soft drop shadow. */
+@utility glow-card {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--color-surface);
+  backdrop-filter: blur(14px) saturate(130%);
+  border: 1px solid transparent;
+  border-radius: inherit;
+  box-shadow:
+    0 1px 0 0 oklch(1 0 0 / 0.06) inset,
+    0 14px 30px -22px oklch(0 0 0 / 0.9);
+  transition:
+    transform 0.24s var(--glow-ease),
+    box-shadow 0.24s ease;
+
+  /* 1px gradient border via mask — brighter at the top edge. */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      160deg,
+      color-mix(in oklab, var(--glow-primary-color) 42%, transparent),
+      oklch(1 0 0 / 0.07) 38%,
+      oklch(1 0 0 / 0.03) 70%,
+      color-mix(in oklab, var(--glow-cyan) 18%, transparent)
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    opacity: 0.65;
+    transition: opacity 0.24s ease;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Pointer spotlight (desktop only, driven by --mx/--my). */
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      170px circle at var(--mx, 50%) var(--my, 0%),
+      color-mix(in oklab, var(--glow-primary-color) 16%, transparent),
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.26s ease;
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .glow-card:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 1px 0 0 oklch(1 0 0 / 0.09) inset,
+      0 18px 40px -24px oklch(0 0 0 / 0.95),
+      0 0 26px -10px color-mix(in oklab, var(--glow-primary-color) 34%, transparent);
+  }
+  .glow-card:hover::before {
+    opacity: 1;
+  }
+  .glow-card:hover::after {
+    opacity: 1;
+  }
+}
+
+/* Touch: press illumination replaces hover. */
+.glow-card:active::before {
+  opacity: 1;
+}
+.glow-card:active::after {
+  opacity: 0.85;
+}
+
+/* Semantic tints for stat cards. */
+@utility glow-cool {
+  --glow-primary-color: oklch(0.72 0.12 210);
+}
+@utility glow-emerald {
+  --glow-primary-color: oklch(0.75 0.15 158);
+  --glow-cyan: oklch(0.75 0.15 158);
+}
+@utility glow-amber {
+  --glow-primary-color: oklch(0.8 0.14 82);
+  --glow-cyan: oklch(0.8 0.14 82);
+}
+
+/* Diffused illumination behind the balance amount. */
+@utility glow-halo {
+  position: relative;
+  isolation: isolate;
+  &::before {
+    content: "";
+    position: absolute;
+    left: -12%;
+    top: -70%;
+    width: 44%;
+    height: 260%;
+    border-radius: 999px;
+    background: radial-gradient(
+      closest-side,
+      color-mix(in oklab, var(--glow-primary-color) 16%, transparent),
+      transparent 78%
+    );
+    filter: blur(18px);
+    pointer-events: none;
+    z-index: -1;
+  }
+}
+
+/* Floating action button — the strongest light source in the UI. */
+@utility glow-button {
+  position: relative;
+  isolation: isolate;
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--glow-primary-color) 55%, transparent),
+    0 1px 0 0 oklch(1 0 0 / 0.28) inset,
+    0 -6px 12px -8px oklch(0 0 0 / 0.5) inset,
+    0 10px 24px -8px color-mix(in oklab, var(--glow-primary-color) 60%, transparent),
+    0 0 42px -12px color-mix(in oklab, var(--glow-primary-color) 55%, transparent);
+  transition:
+    box-shadow 0.26s ease,
+    transform 0.2s var(--glow-ease);
+
+  /* diffused light spilling underneath / behind the nav bar */
+  &::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 55%;
+    width: 190%;
+    height: 190%;
+    transform: translate(-50%, -50%);
+    border-radius: 999px;
+    background: radial-gradient(
+      closest-side,
+      color-mix(in oklab, var(--glow-primary-color) 30%, transparent),
+      transparent 72%
+    );
+    filter: blur(12px);
+    pointer-events: none;
+    z-index: -1;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .glow-button:hover {
+    box-shadow:
+      0 0 0 1px color-mix(in oklab, var(--glow-primary-color) 70%, transparent),
+      0 1px 0 0 oklch(1 0 0 / 0.34) inset,
+      0 12px 30px -8px color-mix(in oklab, var(--glow-primary-color) 72%, transparent),
+      0 0 58px -10px color-mix(in oklab, var(--glow-primary-color) 65%, transparent);
+  }
+}
+
+@keyframes glow-bloom {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--glow-primary-color) 45%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 18px color-mix(in oklab, var(--glow-primary-color) 0%, transparent);
+  }
+}
+
+@utility glow-bloom {
+  animation: glow-bloom 0.5s var(--glow-ease);
+}
+
+/* Active nav item illumination. */
+@utility glow-active {
+  position: relative;
+  isolation: isolate;
+  &::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 42%;
+    width: 132%;
+    height: 132%;
+    transform: translate(-50%, -50%);
+    border-radius: 999px;
+    background: radial-gradient(
+      closest-side,
+      color-mix(in oklab, var(--glow-primary-color) 26%, transparent),
+      transparent 72%
+    );
+    filter: blur(7px);
+    opacity: 1;
+    transition: opacity 0.24s ease;
+    pointer-events: none;
+    z-index: -1;
+  }
+}
+
+/* Understated illuminated dashed container. */
+@utility glow-dashed {
+  transition:
+    border-color 0.24s ease,
+    box-shadow 0.24s ease;
+  &:hover {
+    border-color: color-mix(in oklab, var(--glow-primary-color) 32%, transparent);
+    box-shadow: 0 0 24px -14px color-mix(in oklab, var(--glow-primary-color) 45%, transparent);
+  }
+}
+
+/* Chips and ghost surfaces wake up subtly on hover. */
+@utility glow-edge {
+  transition:
+    border-color 0.22s ease,
+    box-shadow 0.22s ease,
+    transform 0.22s var(--glow-ease);
+  &:hover {
+    border-color: color-mix(in oklab, var(--glow-primary-color) 38%, transparent);
+    box-shadow: 0 0 18px -12px color-mix(in oklab, var(--glow-primary-color) 55%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glow-card,
+  .glow-card::before,
+  .glow-card::after,
+  .glow-button,
+  .glow-active::before,
+  .glow-edge,
+  .glow-dashed {
+    transition: none;
+  }
+  .glow-card:hover {
+    transform: none;
+  }
+  .glow-bloom {
+    animation: none;
+  }
+}
