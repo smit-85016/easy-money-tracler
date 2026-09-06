@@ -12,14 +12,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as FriendsRouteImport } from './routes/friends'
 import { Route as InsightsRouteImport } from './routes/insights'
-<<<<<<< HEAD
 import { Route as ReceivedTransactionsRouteImport } from './routes/received-transactions'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SpentTransactionsRouteImport } from './routes/spent-transactions'
 import { Route as ToPayTransactionsRouteImport } from './routes/to-pay-transactions'
-=======
-import { Route as SettingsRouteImport } from './routes/settings'
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
 import { Route as TransactionsRouteImport } from './routes/transactions'
 import { Route as FriendsFriendIdRouteImport } from './routes/friends.$friendId'
 
@@ -38,20 +34,16 @@ const InsightsRoute = InsightsRouteImport.update({
   path: '/insights',
   getParentRoute: () => rootRouteImport,
 } as any)
-<<<<<<< HEAD
 const ReceivedTransactionsRoute = ReceivedTransactionsRouteImport.update({
   id: '/received-transactions',
   path: '/received-transactions',
   getParentRoute: () => rootRouteImport,
 } as any)
-=======
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
-<<<<<<< HEAD
 const SpentTransactionsRoute = SpentTransactionsRouteImport.update({
   id: '/spent-transactions',
   path: '/spent-transactions',
@@ -62,8 +54,6 @@ const ToPayTransactionsRoute = ToPayTransactionsRouteImport.update({
   path: '/to-pay-transactions',
   getParentRoute: () => rootRouteImport,
 } as any)
-=======
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
 const TransactionsRoute = TransactionsRouteImport.update({
   id: '/transactions',
   path: '/transactions',
@@ -79,14 +69,10 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/friends': typeof FriendsRouteWithChildren
   '/insights': typeof InsightsRoute
-<<<<<<< HEAD
   '/received-transactions': typeof ReceivedTransactionsRoute
   '/settings': typeof SettingsRoute
   '/spent-transactions': typeof SpentTransactionsRoute
   '/to-pay-transactions': typeof ToPayTransactionsRoute
-=======
-  '/settings': typeof SettingsRoute
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
   '/transactions': typeof TransactionsRoute
   '/friends/$friendId': typeof FriendsFriendIdRoute
 }
@@ -94,14 +80,10 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/friends': typeof FriendsRouteWithChildren
   '/insights': typeof InsightsRoute
-<<<<<<< HEAD
   '/received-transactions': typeof ReceivedTransactionsRoute
   '/settings': typeof SettingsRoute
   '/spent-transactions': typeof SpentTransactionsRoute
   '/to-pay-transactions': typeof ToPayTransactionsRoute
-=======
-  '/settings': typeof SettingsRoute
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
   '/transactions': typeof TransactionsRoute
   '/friends/$friendId': typeof FriendsFriendIdRoute
 }
@@ -110,14 +92,10 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/friends': typeof FriendsRouteWithChildren
   '/insights': typeof InsightsRoute
-<<<<<<< HEAD
   '/received-transactions': typeof ReceivedTransactionsRoute
   '/settings': typeof SettingsRoute
   '/spent-transactions': typeof SpentTransactionsRoute
   '/to-pay-transactions': typeof ToPayTransactionsRoute
-=======
-  '/settings': typeof SettingsRoute
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
   '/transactions': typeof TransactionsRoute
   '/friends/$friendId': typeof FriendsFriendIdRoute
 }
@@ -127,14 +105,10 @@ export interface FileRouteTypes {
     | '/'
     | '/friends'
     | '/insights'
-<<<<<<< HEAD
     | '/received-transactions'
     | '/settings'
     | '/spent-transactions'
     | '/to-pay-transactions'
-=======
-    | '/settings'
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
     | '/transactions'
     | '/friends/$friendId'
   fileRoutesByTo: FileRoutesByTo
@@ -142,14 +116,10 @@ export interface FileRouteTypes {
     | '/'
     | '/friends'
     | '/insights'
-<<<<<<< HEAD
     | '/received-transactions'
     | '/settings'
     | '/spent-transactions'
     | '/to-pay-transactions'
-=======
-    | '/settings'
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
     | '/transactions'
     | '/friends/$friendId'
   id:
@@ -157,14 +127,10 @@ export interface FileRouteTypes {
     | '/'
     | '/friends'
     | '/insights'
-<<<<<<< HEAD
     | '/received-transactions'
     | '/settings'
     | '/spent-transactions'
     | '/to-pay-transactions'
-=======
-    | '/settings'
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
     | '/transactions'
     | '/friends/$friendId'
   fileRoutesById: FileRoutesById
@@ -173,14 +139,10 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   FriendsRoute: typeof FriendsRouteWithChildren
   InsightsRoute: typeof InsightsRoute
-<<<<<<< HEAD
   ReceivedTransactionsRoute: typeof ReceivedTransactionsRoute
   SettingsRoute: typeof SettingsRoute
   SpentTransactionsRoute: typeof SpentTransactionsRoute
   ToPayTransactionsRoute: typeof ToPayTransactionsRoute
-=======
-  SettingsRoute: typeof SettingsRoute
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
   TransactionsRoute: typeof TransactionsRoute
 }
 
@@ -207,7 +169,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InsightsRouteImport
       parentRoute: typeof rootRouteImport
     }
-<<<<<<< HEAD
     '/received-transactions': {
       id: '/received-transactions'
       path: '/received-transactions'
@@ -215,8 +176,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReceivedTransactionsRouteImport
       parentRoute: typeof rootRouteImport
     }
-=======
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
     '/settings': {
       id: '/settings'
       path: '/settings'
@@ -224,7 +183,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
-<<<<<<< HEAD
     '/spent-transactions': {
       id: '/spent-transactions'
       path: '/spent-transactions'
@@ -239,8 +197,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ToPayTransactionsRouteImport
       parentRoute: typeof rootRouteImport
     }
-=======
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
     '/transactions': {
       id: '/transactions'
       path: '/transactions'
@@ -273,14 +229,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   FriendsRoute: FriendsRouteWithChildren,
   InsightsRoute: InsightsRoute,
-<<<<<<< HEAD
   ReceivedTransactionsRoute: ReceivedTransactionsRoute,
   SettingsRoute: SettingsRoute,
   SpentTransactionsRoute: SpentTransactionsRoute,
   ToPayTransactionsRoute: ToPayTransactionsRoute,
-=======
-  SettingsRoute: SettingsRoute,
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
   TransactionsRoute: TransactionsRoute,
 }
 export const routeTree = rootRouteImport

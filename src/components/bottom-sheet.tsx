@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { useEffect, useRef, type ReactNode } from "react";
-=======
-import { useEffect, type ReactNode } from "react";
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -19,11 +15,8 @@ export function BottomSheet({
   children: ReactNode;
   className?: string;
 }) {
-<<<<<<< HEAD
   const sheetRef = useRef<HTMLDivElement>(null);
 
-=======
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
   useEffect(() => {
     if (!open) return;
     const previous = document.body.style.overflow;
@@ -40,7 +33,6 @@ export function BottomSheet({
 
   if (!open) return null;
 
-<<<<<<< HEAD
   const handleOverlayClick = (event: React.MouseEvent) => {
     if (sheetRef.current && !sheetRef.current.contains(event.target as Node)) {
       onClose();
@@ -61,18 +53,6 @@ export function BottomSheet({
         onClick={(e) => e.stopPropagation()}
         className={cn(
           "relative z-10 w-full max-w-md rounded-t-[2rem] border-t border-border bg-popover px-5 pb-8 pt-3 shadow-glass animate-in slide-in-from-bottom duration-300",
-=======
-  return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center">
-      <button
-        aria-label="Close"
-        onClick={onClose}
-        className="absolute inset-0 bg-background/70 backdrop-blur-md animate-in fade-in duration-200"
-      />
-      <div
-        className={cn(
-          "relative w-full max-w-md rounded-t-[2rem] border-t border-border bg-popover px-5 pb-8 pt-3 shadow-glass animate-in slide-in-from-bottom duration-300",
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
           "max-h-[92vh] overflow-y-auto",
           className,
         )}
@@ -83,11 +63,7 @@ export function BottomSheet({
             <h2 className="text-lg font-semibold tracking-tight">{title}</h2>
             <button
               onClick={onClose}
-<<<<<<< HEAD
               className="press rounded-full border border-border p-2 text-muted-foreground transition-transform duration-75 active:scale-95 active:press-active"
-=======
-              className="press rounded-full border border-border p-2 text-muted-foreground active:press-active"
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
               aria-label="Close sheet"
             >
               <X className="size-4" />

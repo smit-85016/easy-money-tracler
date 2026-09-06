@@ -9,20 +9,12 @@ import { useSummary } from "@/lib/data";
 export const Route = createFileRoute("/insights")({
   head: () => ({
     meta: [
-<<<<<<< HEAD
       { title: "Insights — Worth" },
-=======
-      { title: "Insights — Tallyo" },
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
       {
         name: "description",
         content: "A one-glance monthly summary: received, spent, remaining and your top category.",
       },
-<<<<<<< HEAD
       { property: "og:title", content: "Insights — Worth" },
-=======
-      { property: "og:title", content: "Insights — Tallyo" },
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
       {
         property: "og:description",
         content: "Received, spent, remaining and your top spending category this month.",
@@ -51,11 +43,8 @@ function InsightsPage() {
     fill: PALETTE[index % PALETTE.length],
   }));
 
-<<<<<<< HEAD
   const hasSpending = summary.spentThisMonth > 0 && chartData.some((d) => d.value > 0);
 
-=======
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
   return (
     <AppShell title="Insights" subtitle={month}>
       <div className="space-y-3">
@@ -73,13 +62,9 @@ function InsightsPage() {
         </GlassCard>
         <GlassCard className="flex items-center justify-between px-5 py-4">
           <span className="text-sm text-muted-foreground">Remaining Balance</span>
-<<<<<<< HEAD
           <span className="numeric text-[17px] font-semibold">
             {formatMoney(summary.available)}
           </span>
-=======
-          <span className="numeric text-[17px] font-semibold">{formatMoney(summary.available)}</span>
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
         </GlassCard>
         <GlassCard className="flex items-center justify-between px-5 py-4">
           <span className="text-sm text-muted-foreground">Top Category</span>
@@ -91,16 +76,11 @@ function InsightsPage() {
 
       <div className="mt-8">
         <SectionLabel>Where it went</SectionLabel>
-<<<<<<< HEAD
         {!hasSpending ? (
           <EmptyState
             title="No transactions yet. Tap + to add one."
             hint="Your chart appears once you log expenses."
           />
-=======
-        {chartData.length === 0 ? (
-          <EmptyState title="No spending this month" hint="Your chart appears once you log expenses." />
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
         ) : (
           <GlassCard className="px-3 py-5">
             <div className="h-52 w-full">

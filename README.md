@@ -1,432 +1,181 @@
-# Pocket Ledger
+# Worth — Money, made clear.
 
-Build a minimal, modern, premium-looking personal money tracker mobile app for daily use.
+<p align="center">
+  <img src="public/favicon.png" alt="Worth Logo" width="96" height="96" />
+</p>
 
-The app should be simple enough that I can record a transaction in a few seconds.
+<p align="center">
+  <strong>A minimal, fast, and private personal finance tracker and friend settlement ledger.</strong>
+</p>
+
+<p align="center">
+  <a href="#features"><img src="https://img.shields.io/badge/UX-Mobile--First-6366f1?style=for-the-badge" alt="Mobile First" /></a>
+  <a href="#tech-stack"><img src="https://img.shields.io/badge/Stack-TanStack%20Start%20%7C%20React-06b6d4?style=for-the-badge" alt="TanStack Start" /></a>
+  <a href="#tech-stack"><img src="https://img.shields.io/badge/TypeScript-5.0-3178c6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" /></a>
+  <a href="#tech-stack"><img src="https://img.shields.io/badge/Tailwind_CSS-v4-38bdf8?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind CSS v4" /></a>
+  <a href="#privacy--offline-first"><img src="https://img.shields.io/badge/Privacy-100%25%20Offline-10b981?style=for-the-badge" alt="100% Offline" /></a>
+</p>
+
+---
+
+## Overview
+
+**Worth** is designed for everyday clarity. It eliminates the bloat of traditional accounting apps, intrusive bank-sync permissions, and paywalled dashboards in favor of speed, simplicity, and complete privacy.
+
+Record an expense in under three seconds, glance at your real available balance, track friend debts and split bills effortlessly—all wrapped in a frosted **Midnight Glass** dark UI.
+
+> [!NOTE]
+> **100% Local & Private**: All data stays strictly on your device using local storage. No accounts required, no tracking, and no external servers storing your financial records.
+
+---
+
+## ✨ Key Features
 
-Do NOT make it a complex finance/accounting app.
+### 🛡️ Available Balance & Privacy Shield
+- **At-a-Glance Liquidity**: Instant total aggregated across all your active accounts (Banks, Cash, Wallets).
+- **Privacy Mode**: Tap the eye toggle to mask your balance (`₹ •••••`) when in public or sharing your screen.
+- **Stationary Toggle**: Right-anchored toggle button stays steady regardless of number length, preventing layout shifts.
 
-Main Goal
+### ⚡ Lightning-Fast Quick Add
+- **Add Expense**: Enter amount, pick a category, and save in seconds.
+- **Add Money**: Log income from Salary, Family, Freelance, or Refunds.
+- **Split Bills**: Automatically split meals or purchases with friends evenly or with per-friend custom overrides.
+- **Transfers**: Seamlessly shift funds between accounts without altering net worth or counting as an expense.
+- **More Details**: Optional fields (dates, descriptions, accounts, notes) stay neatly tucked away until you need them.
 
-I want to quickly know:
+### 🤝 Friends & Ledger Management
+- **Shared Expenses**: Keep track of who owes you and what you owe.
+- **Friend Ledger**: View full transaction histories per person.
+- **One-Tap Settle**: Mark entries as settled or reopen them with a single tap without distorting your current balance.
 
-How much money I currently have
+### 📊 Clean Analytics & Insights
+- **Monthly Spending Breakdown**: Track total spent, income received, and net remaining for the month.
+- **Top Category Analysis**: Interactive visualizations highlighting your biggest spending habits.
 
-How much I spent
+### 🏦 Multi-Account Support
+- Manage separate balances for multiple **Bank Accounts**, **Cash in Hand**, and digital **Wallets**.
+- Edit starting balances and account names dynamically.
 
-Where I spent it
+---
 
-How much money friends owe me
+## 🎨 Design & Interaction
 
-How much I owe friends
+Worth is built on the **Midnight Glass** design system:
+- **Dark-First Atmosphere**: Rich `#08090F` OLED background with layered frosted-glass cards (`backdrop-blur`).
+- **Tactile Micro-interactions**: Native-feeling spring-press physics (`scale-95 duration-75`) on all buttons, chips, and cards.
+- **Haptic Feedback**: Physical vibrations via Web Haptics API on taps, selections, confirmations, and warnings.
+- **Mobile Optimized**:
+  - Auto-focuses the Amount field whenever modals or sheets open.
+  - Opens decimal numeric keypads (`inputMode="decimal"`) automatically.
+  - Tap-anywhere backdrop dismiss for sheets and modals.
+  - Subtle 2-second floating action toasts above the navigation bar.
 
-Everything will be entered manually.
+---
 
-Core Features Only
+## 🛠️ Tech Stack
 
-1. Home Screen
+| Layer | Technology |
+| :--- | :--- |
+| **Framework** | [TanStack Start](https://tanstack.com/start) (Fullstack React framework with SSR) |
+| **Routing** | [TanStack Router](https://tanstack.com/router) (Fully typesafe file-based routing) |
+| **Language** | [TypeScript](https://www.typescriptlang.org/) |
+| **Styling** | [Tailwind CSS v4](https://tailwindcss.com/) with OKLCH color spaces |
+| **State Management** | [TanStack Query](https://tanstack.com/query) + Custom reactive LocalStore |
+| **Icons** | [Lucide React](https://lucide.dev/) |
+| **Charts** | [Recharts](https://recharts.org/) |
+| **Notifications** | [Sonner](https://sonner.emilkowal.ski/) |
+| **Bundler / Server** | [Vite](https://vitejs.dev/) + [Nitro](https://nitro.unjs.io/) |
 
-Show a clean premium dashboard with:
+---
 
-Available Balance
+## 🚀 Getting Started
 
-Example:
+### Prerequisites
+- **Node.js** (v18.0.0 or higher recommended)
+- **npm**, **pnpm**, or **bun**
 
-₹4,850
+### Installation
 
-Below it show three small cards:
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/your-username/worth.git
+   cd worth
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   npm install
+   # or
+   bun install
+   ```
+
+3. **Start the development server**:
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+4. **Build for production**:
+   ```bash
+   npm run build
+   ```
+
+5. **Preview production build**:
+   ```bash
+   npm run preview
+   ```
+
+---
+
+## 📁 Project Structure
 
-Spent This Month
-
-To Receive
-
-To Pay
-
-Also show recent transactions.
-
-2. Add Money
-
-Allow me to enter:
-
-Amount
-
-Source
-
-Account
-
-Optional note
-
-Example:
-
-₹3,000
-From Home
-
-This should increase my balance.
-
-3. Add Expense
-
-Make this extremely fast.
-
-Main flow:
-
-Enter Amount → Select Category → Save
-
-Example:
-
-₹900
-Shopping
-Power Bank
-
-Balance should automatically decrease.
-
-Optional fields:
-
-Description
-
-Account
-
-Date
-
-Note
-
-Keep optional fields hidden under “More Details”.
-
-4. Categories
-
-Use simple modern icons for:
-
-Food
-
-Shopping
-
-Grocery
-
-Travel
-
-College
-
-Recharge/Bills
-
-Entertainment
-
-Health
-
-Electronics
-
-Other
-
-Allow custom category if needed.
-
-5. Friend Split
-
-Example:
-
-Dinner bill = ₹600
-
-I paid ₹600.
-
-My share = ₹300.
-
-Friend share = ₹300.
-
-App should show:
-
-Available balance decreases by ₹600.
-
-And separately:
-
-₹300 To Receive
-
-Do not add the ₹300 back to available balance until the friend actually pays me.
-
-6. Friend Tracker
-
-Create a simple Friends screen.
-
-Example:
-
-Rahul
-₹300 To Receive
-
-Yash
-₹200 To Pay
-
-Tap a friend to see simple payment history.
-
-Add a:
-
-Settle
-
-button.
-
-7. Reminder
-
-Allow me to set a reminder for pending friend payments.
-
-Options:
-
-Tomorrow
-
-3 Days
-
-7 Days
-
-Custom Date
-
-Use local notifications.
-
-8. Transactions
-
-Show all transactions in a clean timeline.
-
-Example:
-
-Today
-
-Shopping
-Power Bank
-−₹900
-
-Food
-Dinner
-−₹600
-₹300 recoverable
-
-Money Received
-From Home
-+₹3,000
-
-Allow edit and delete.
-
-9. Accounts
-
-Only support simple accounts:
-
-Bank
-
-Cash
-
-Optional:
-
-Wallet
-
-Show total available money from all accounts.
-
-Allow transfer between Bank and Cash.
-
-Transfers must NOT count as income or expense.
-
-10. Simple Monthly Summary
-
-Show only useful information:
-
-Total Received
-
-Total Spent
-
-Remaining Balance
-
-Top Spending Category
-
-Add one simple spending chart.
-
-Do NOT add complicated analytics.
-
-UI STYLE
-
-This is very important.
-
-The app must look:
-
-modern
-
-premium
-
-minimal
-
-futuristic
-
-clean
-
-smooth
-
-elegant
-
-Take inspiration from modern iPhone/iOS design principles:
-
-excellent typography
-
-soft rounded cards
-
-clean spacing
-
-subtle blur/transparency
-
-smooth animations
-
-premium icons
-
-light and dark mode
-
-subtle haptic feedback
-
-Do NOT directly copy Apple.
-
-Create an original premium design.
-
-Avoid:
-
-too many colors
-
-excessive neon
-
-clutter
-
-unnecessary gradients
-
-huge dashboards
-
-complex charts
-
-too much text
-
-The app should look impressive when opened in front of other people, but still remain simple.
-
-Navigation
-
-Use only 4 main sections:
-
-Home | Transactions | Friends | Insights
-
-Use one floating + button.
-
-When tapped show:
-
-Add Expense
-
-Add Money
-
-Split Bill
-
-Transfer
-
-Important Accounting Logic
-
-Keep these values separate:
-
-Available Balance
-
-To Receive
-
-To Pay
-
-Example:
-
-Available = ₹2,000
-
-Friend owes me = ₹500
-
-I owe friend = ₹200
-
-Show:
-
-Available ₹2,000
-
-To Receive ₹500
-
-To Pay ₹200
-
-Do NOT show ₹2,500 as available.
-
-Technical Requirements
-
-Build it in Flutter.
-
-Use local storage/database.
-
-The app should work fully offline.
-
-No login required.
-
-No bank integration.
-
-No Firebase required.
-
-Use local notifications for reminders.
-
-Use integer values for money calculations, not floating-point numbers.
-
-Keep the project architecture clean but NOT over-engineered.
-
-Development Rule
-
-Do not create 50 screens.
-
-Do not add extra features unless absolutely necessary.
-
-Focus on making these few features work perfectly.
-
-First build:
-
-Home
-
-Add Money
-
-Add Expense
-
-Transactions
-
-Friend Split
-
-Friends
-
-Reminders
-
-Simple Insights
-
-Settings
-
-Then polish the UI.
-
-The final result should feel like:
-
-a beautifully designed personal money notebook for daily life.
-
-Not accounting software.
-
-Not a business finance app.
-
-Not a complicated budgeting system.
-
-Start by showing me:
-
-Simple screen structure
-
-Database structure
-
-UI design system
-
-Then begin implementing the Flutter app.
-
-This project was built with [Lovable](https://lovable.dev).
-
-**Live app**: https://easy-money-tracler.lovable.app
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/1ca10ac1-691c-4f44-aae9-f5fc4cb49e1b).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
 ```
+├── public/                  # Static assets & PWA manifest
+│   ├── app-icon-*.png
+│   ├── favicon.png
+│   └── manifest.webmanifest # PWA configuration
+├── src/
+│   ├── components/          # Reusable UI components
+│   │   ├── app-shell.tsx    # Header, navigation, and quick-add sheet
+│   │   ├── bottom-sheet.tsx # Backdrop-dismissable modal sheet
+│   │   ├── primitives.tsx   # GlassCard, AmountField, Buttons, Chips
+│   │   ├── quick-add.tsx    # Expense, Income, Split, Transfer forms
+│   │   ├── transaction-row.tsx # Transaction list row component
+│   │   └── ui/              # Toast (Sonner) and UI primitives
+│   ├── lib/                 # Core logic and helpers
+│   │   ├── categories.ts    # Expense categories & icons
+│   │   ├── data.ts          # Reactive hooks for accounts, ledger, transactions
+│   │   ├── haptics.ts       # Mobile vibration feedback
+│   │   ├── local-store.ts   # LocalStorage persistence engine
+│   │   ├── money.ts         # Currency formatting & splitting math (paise-safe)
+│   │   └── theme.ts         # Dark/Light theme manager
+│   ├── routes/              # TanStack file-based routes
+│   │   ├── __root.tsx       # Root layout & meta configuration
+│   │   ├── index.tsx        # Home dashboard
+│   │   ├── transactions.tsx # Activity timeline & transaction editor
+│   │   ├── friends.tsx      # Friends list & owed balances
+│   │   ├── friends.$friendId.tsx # Individual friend ledger & settlement
+│   │   ├── insights.tsx     # Monthly spending analytics
+│   │   ├── settings.tsx     # Account configuration, theme, data reset
+│   │   ├── spent-transactions.tsx
+│   │   ├── received-transactions.tsx
+│   │   └── to-pay-transactions.tsx
+│   └── styles.css           # Tailwind v4 theme tokens & animations
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+---
+
+## 🔒 Privacy & Offline-First
+
+Worth does not ask for bank credentials, does not require an email address, and never transmits your transactions across the internet. 
+
+All financial amounts are stored safely on device as integers (paise) to guarantee complete precision without floating-point math issues.
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).

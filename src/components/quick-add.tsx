@@ -96,13 +96,9 @@ function MoreDetails({ children }: { children: React.ReactNode }) {
         More Details
         <ChevronDown className={`size-4 transition-transform ${open ? "rotate-180" : ""}`} />
       </button>
-<<<<<<< HEAD
       {open ? (
         <div className="space-y-4 pt-2 animate-in fade-in slide-in-from-top-2">{children}</div>
       ) : null}
-=======
-      {open ? <div className="space-y-4 pt-2 animate-in fade-in slide-in-from-top-2">{children}</div> : null}
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
     </div>
   );
 }
@@ -121,10 +117,7 @@ function ExpenseForm({ onDone }: { onDone: () => void }) {
   const [accountId, setAccountId] = useState<string | null>(null);
   const [date, setDate] = useState(todayLocal());
   const [note, setNote] = useState("");
-<<<<<<< HEAD
   const [description, setDescription] = useState("");
-=======
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
 
   const [customCategory, setCustomCategory] = useState("");
   const save = useSaveTransaction();
@@ -132,14 +125,10 @@ function ExpenseForm({ onDone }: { onDone: () => void }) {
   const paise = toPaise(amount);
 
   const submit = () => {
-<<<<<<< HEAD
     if (paise <= 0) {
       toast.error("Enter an amount");
       return;
     }
-=======
-    if (paise <= 0) { toast.error("Enter an amount"); return; }
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
     save.mutate(
       {
         kind: "expense",
@@ -153,11 +142,7 @@ function ExpenseForm({ onDone }: { onDone: () => void }) {
       {
         onSuccess: () => {
           haptics.confirm();
-<<<<<<< HEAD
           toast.success("Transaction saved");
-=======
-          toast.success(`${formatMoney(paise)} expense saved`);
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
           onDone();
         },
         onError: (error) => toast.error(error.message),
@@ -181,11 +166,7 @@ function ExpenseForm({ onDone }: { onDone: () => void }) {
                 setCustomCategory("");
                 setCategory(item.id);
               }}
-<<<<<<< HEAD
               className={`press flex flex-col items-center gap-1.5 rounded-2xl border px-1 py-2.5 transition-transform duration-75 active:scale-95 active:press-active ${
-=======
-              className={`press flex flex-col items-center gap-1.5 rounded-2xl border px-1 py-2.5 active:press-active ${
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
                 active ? "border-primary/60 bg-primary/15" : "border-border bg-secondary/40"
               }`}
             >
@@ -197,7 +178,6 @@ function ExpenseForm({ onDone }: { onDone: () => void }) {
       </div>
 
       <MoreDetails>
-<<<<<<< HEAD
         <FieldRow label="Description">
           <TextField
             value={description}
@@ -205,8 +185,6 @@ function ExpenseForm({ onDone }: { onDone: () => void }) {
             placeholder="e.g. Power Bank"
           />
         </FieldRow>
-=======
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
         <FieldRow label="Note">
           <TextField
             value={note}
@@ -227,14 +205,8 @@ function ExpenseForm({ onDone }: { onDone: () => void }) {
         </FieldRow>
       </MoreDetails>
 
-<<<<<<< HEAD
       <div className="mt-5">
         <PrimaryButton onClick={submit} disabled={save.isPending || paise <= 0}>
-=======
-
-      <div className="mt-5">
-        <PrimaryButton onClick={submit} disabled={save.isPending}>
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
           Save Expense
         </PrimaryButton>
       </div>
@@ -254,14 +226,10 @@ function IncomeForm({ onDone }: { onDone: () => void }) {
   const paise = toPaise(amount);
 
   const submit = () => {
-<<<<<<< HEAD
     if (paise <= 0) {
       toast.error("Enter an amount");
       return;
     }
-=======
-    if (paise <= 0) { toast.error("Enter an amount"); return; }
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
     save.mutate(
       {
         kind: "income",
@@ -273,11 +241,7 @@ function IncomeForm({ onDone }: { onDone: () => void }) {
       {
         onSuccess: () => {
           haptics.confirm();
-<<<<<<< HEAD
           toast.success("Transaction saved");
-=======
-          toast.success(`${formatMoney(paise)} added`);
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
           onDone();
         },
         onError: (error) => toast.error(error.message),
@@ -305,7 +269,6 @@ function IncomeForm({ onDone }: { onDone: () => void }) {
       <AccountChips value={accountId ?? defaultAccount} onChange={setAccountId} />
       <MoreDetails>
         <FieldRow label="Note">
-<<<<<<< HEAD
           <TextField
             value={note}
             onChange={(e) => setNote(e.target.value)}
@@ -314,12 +277,6 @@ function IncomeForm({ onDone }: { onDone: () => void }) {
         </FieldRow>
       </MoreDetails>
       <PrimaryButton onClick={submit} disabled={save.isPending || paise <= 0}>
-=======
-          <TextField value={note} onChange={(e) => setNote(e.target.value)} placeholder="Optional" />
-        </FieldRow>
-      </MoreDetails>
-      <PrimaryButton onClick={submit} disabled={save.isPending}>
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
         Add Money
       </PrimaryButton>
     </div>
@@ -362,7 +319,6 @@ function SplitForm({ onDone }: { onDone: () => void }) {
   };
 
   const submit = () => {
-<<<<<<< HEAD
     if (total <= 0) {
       toast.error("Enter the bill amount");
       return;
@@ -371,10 +327,6 @@ function SplitForm({ onDone }: { onDone: () => void }) {
       toast.error("Pick at least one friend");
       return;
     }
-=======
-    if (total <= 0) { toast.error("Enter the bill amount"); return; }
-    if (!selected.length) { toast.error("Pick at least one friend"); return; }
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
     saveSplit.mutate(
       {
         amount: total,
@@ -387,11 +339,7 @@ function SplitForm({ onDone }: { onDone: () => void }) {
       {
         onSuccess: () => {
           haptics.confirm();
-<<<<<<< HEAD
           toast.success("Transaction saved");
-=======
-          toast.success(`${formatMoney(total)} split · ${formatMoney(friendTotal)} to receive`);
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
           onDone();
         },
         onError: (error) => toast.error(error.message),
@@ -424,15 +372,11 @@ function SplitForm({ onDone }: { onDone: () => void }) {
       <FieldRow label="Split with">
         <div className="flex flex-wrap gap-2">
           {friends.map((friend) => (
-<<<<<<< HEAD
             <Chip
               key={friend.id}
               active={selected.includes(friend.id)}
               onClick={() => toggle(friend.id)}
             >
-=======
-            <Chip key={friend.id} active={selected.includes(friend.id)} onClick={() => toggle(friend.id)}>
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
               {friend.name}
             </Chip>
           ))}
@@ -498,14 +442,10 @@ function SplitForm({ onDone }: { onDone: () => void }) {
         <AccountChips value={accountId ?? defaultAccount} onChange={setAccountId} />
       </MoreDetails>
 
-<<<<<<< HEAD
       <PrimaryButton
         onClick={submit}
         disabled={saveSplit.isPending || total <= 0 || selected.length === 0}
       >
-=======
-      <PrimaryButton onClick={submit} disabled={saveSplit.isPending}>
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
         Save Split
       </PrimaryButton>
     </div>
@@ -526,7 +466,6 @@ function TransferForm({ onDone }: { onDone: () => void }) {
   const toId = to ?? accounts[1]?.id ?? null;
 
   const submit = () => {
-<<<<<<< HEAD
     if (paise <= 0) {
       toast.error("Enter an amount");
       return;
@@ -535,20 +474,12 @@ function TransferForm({ onDone }: { onDone: () => void }) {
       toast.error("Pick two different accounts");
       return;
     }
-=======
-    if (paise <= 0) { toast.error("Enter an amount"); return; }
-    if (!fromId || !toId || fromId === toId) { toast.error("Pick two different accounts"); return; }
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
     save.mutate(
       { kind: "transfer", amount: paise, account_id: fromId, to_account_id: toId },
       {
         onSuccess: () => {
           haptics.confirm();
-<<<<<<< HEAD
           toast.success("Transfer completed");
-=======
-          toast.success("Transfer saved");
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
           onDone();
         },
         onError: (error) => toast.error(error.message),
@@ -564,14 +495,10 @@ function TransferForm({ onDone }: { onDone: () => void }) {
       <p className="px-1 text-[12px] text-muted-foreground">
         Transfers move money between accounts. They never count as income or expense.
       </p>
-<<<<<<< HEAD
       <PrimaryButton
         onClick={submit}
         disabled={save.isPending || paise <= 0 || !fromId || !toId || fromId === toId}
       >
-=======
-      <PrimaryButton onClick={submit} disabled={save.isPending}>
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
         Transfer
       </PrimaryButton>
     </div>

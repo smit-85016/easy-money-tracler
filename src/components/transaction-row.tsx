@@ -29,11 +29,7 @@ export function TransactionRow({
     <button
       type="button"
       onClick={onClick}
-<<<<<<< HEAD
       className="press flex w-full items-center gap-3.5 rounded-2xl px-2 py-2.5 text-left transition-transform duration-75 active:scale-95 active:press-active"
-=======
-      className="press flex w-full items-center gap-3.5 rounded-2xl px-2 py-2.5 text-left active:press-active"
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
     >
       <span
         className="flex size-11 shrink-0 items-center justify-center rounded-2xl border border-border"

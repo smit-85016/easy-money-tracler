@@ -1,6 +1,5 @@
 import { useState, type ReactNode } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-<<<<<<< HEAD
 import {
   Home,
   Receipt,
@@ -14,9 +13,6 @@ import {
   Settings,
   ArrowLeft,
 } from "lucide-react";
-=======
-import { Home, Receipt, Users, PieChart, Plus, ArrowDownLeft, ArrowUpRight, Split, ArrowLeftRight, Settings } from "lucide-react";
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
 import { BottomSheet } from "@/components/bottom-sheet";
 import { QuickAddSheet, type QuickAddMode } from "@/components/quick-add";
 import { haptics } from "@/lib/haptics";
@@ -40,18 +36,12 @@ export function AppShell({
   title,
   subtitle,
   children,
-<<<<<<< HEAD
   backTo,
-=======
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
 }: {
   title: string;
   subtitle?: string;
   children: ReactNode;
-<<<<<<< HEAD
   backTo?: string;
-=======
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
 }) {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const [menuOpen, setMenuOpen] = useState(false);
@@ -60,7 +50,6 @@ export function AppShell({
 
   return (
     <div className="mx-auto min-h-screen w-full max-w-md px-5 pb-32 pt-8">
-<<<<<<< HEAD
       <header className="mb-7 flex items-center justify-between">
         <div className="flex items-center gap-3">
           {backTo ? (
@@ -76,12 +65,6 @@ export function AppShell({
             <h1 className="text-[26px] font-semibold tracking-tight">{title}</h1>
             {subtitle ? <p className="mt-0.5 text-sm text-muted-foreground">{subtitle}</p> : null}
           </div>
-=======
-      <header className="mb-7 flex items-start justify-between">
-        <div>
-          <h1 className="text-[26px] font-semibold tracking-tight">{title}</h1>
-          {subtitle ? <p className="mt-0.5 text-sm text-muted-foreground">{subtitle}</p> : null}
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
         </div>
         <Link
           to="/settings"
@@ -108,11 +91,7 @@ export function AppShell({
             }}
             aria-label="Add"
             className={cn(
-<<<<<<< HEAD
               "press glow-button -mt-8 flex size-14 items-center justify-center rounded-full bg-primary text-primary-foreground transition-transform duration-75 active:scale-95 active:press-active",
-=======
-              "press glow-button -mt-8 flex size-14 items-center justify-center rounded-full bg-primary text-primary-foreground active:press-active",
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
               bloom && "glow-bloom",
             )}
           >
@@ -134,11 +113,7 @@ export function AppShell({
                 setMenuOpen(false);
                 setMode(action.mode);
               }}
-<<<<<<< HEAD
               className="press glow-edge flex flex-col items-start gap-3 rounded-2xl border border-border bg-secondary/40 p-4 text-left transition-transform duration-75 active:scale-95 active:press-active"
-=======
-              className="press glow-edge flex flex-col items-start gap-3 rounded-2xl border border-border bg-secondary/40 p-4 text-left active:press-active"
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
             >
               <span
                 className="flex size-10 items-center justify-center rounded-xl"

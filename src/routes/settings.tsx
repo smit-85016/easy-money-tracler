@@ -24,7 +24,6 @@ import { useTheme } from "@/lib/theme";
 export const Route = createFileRoute("/settings")({
   head: () => ({
     meta: [
-<<<<<<< HEAD
       { title: "Settings — Worth" },
       {
         name: "description",
@@ -34,17 +33,6 @@ export const Route = createFileRoute("/settings")({
       {
         property: "og:description",
         content: "Manage your accounts in Worth. Everything stays on your device.",
-=======
-      { title: "Settings — Tallyo" },
-      {
-        name: "description",
-        content: "Manage your accounts in Tallyo. Everything stays on your device.",
-      },
-      { property: "og:title", content: "Settings — Tallyo" },
-      {
-        property: "og:description",
-        content: "Manage your accounts in Tallyo. Everything stays on your device.",
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
       },
     ],
   }),
@@ -148,10 +136,7 @@ function SettingsPage() {
                   <GhostButton
                     className="shrink-0 px-3 py-2"
                     aria-label="Save account"
-<<<<<<< HEAD
                     disabled={!draftName.trim() || updateAccount.isPending}
-=======
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
                     onClick={() => void saveEdit(account.id)}
                   >
                     <Check className="size-4" />
@@ -195,15 +180,11 @@ function SettingsPage() {
             onChange={(e) => setName(e.target.value)}
             placeholder="New account name"
           />
-<<<<<<< HEAD
           <GhostButton
             className="shrink-0 px-4"
             disabled={!name.trim() || addAccount.isPending}
             onClick={() => void submitAccount()}
           >
-=======
-          <GhostButton className="shrink-0 px-4" onClick={() => void submitAccount()}>
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
             <Plus className="size-4" />
           </GhostButton>
         </div>
@@ -220,11 +201,7 @@ function SettingsPage() {
             onClick={async () => {
               if (!window.confirm("Clear all transactions, friends and dues?")) return;
               await resetData.mutateAsync();
-<<<<<<< HEAD
               toast.success("Data cleared");
-=======
-              toast.success("All data cleared");
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
             }}
           >
             <Trash2 className="size-4" /> Clear All Data

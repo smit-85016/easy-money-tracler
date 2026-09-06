@@ -28,20 +28,12 @@ import {
 export const Route = createFileRoute("/transactions")({
   head: () => ({
     meta: [
-<<<<<<< HEAD
       { title: "Activity — Worth" },
-=======
-      { title: "Activity — Tallyo" },
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
       {
         name: "description",
         content: "A clean timeline of everything you spent, received and transferred.",
       },
-<<<<<<< HEAD
       { property: "og:title", content: "Activity — Worth" },
-=======
-      { property: "og:title", content: "Activity — Tallyo" },
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
       {
         property: "og:description",
         content: "A clean timeline of everything you spent, received and transferred.",
@@ -79,11 +71,7 @@ function TransactionsPage() {
   return (
     <AppShell title="Activity" subtitle={`${transactions.length} entries`}>
       {groups.length === 0 ? (
-<<<<<<< HEAD
         <EmptyState title="No transactions yet. Tap + to add one." />
-=======
-        <EmptyState title="No transactions yet" hint="Everything you log shows up here." />
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
       ) : (
         <div className="space-y-7">
           {groups.map(([label, items]) => (
@@ -122,26 +110,18 @@ function EditSheet({ tx, onClose }: { tx: Transaction | null; onClose: () => voi
     setNote(tx.note ?? tx.description ?? tx.source ?? "");
   }
 
-<<<<<<< HEAD
   if (!tx)
     return (
       <BottomSheet open={false} onClose={onClose}>
         {null}
       </BottomSheet>
     );
-=======
-  if (!tx) return <BottomSheet open={false} onClose={onClose}>{null}</BottomSheet>;
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
 
   const meta = transactionMeta(tx);
 
   return (
     <BottomSheet open onClose={onClose} title={`Edit · ${meta.label}`}>
-<<<<<<< HEAD
       <AmountField value={amount} onChange={setAmount} autoFocus />
-=======
-      <AmountField value={amount} onChange={setAmount} />
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
       <div className="space-y-4">
         <FieldRow label="Note">
           <TextField
@@ -151,7 +131,6 @@ function EditSheet({ tx, onClose }: { tx: Transaction | null; onClose: () => voi
           />
         </FieldRow>
         <PrimaryButton
-<<<<<<< HEAD
           disabled={save.isPending || toPaise(amount) <= 0}
           onClick={() => {
             const paise = toPaise(amount);
@@ -159,11 +138,6 @@ function EditSheet({ tx, onClose }: { tx: Transaction | null; onClose: () => voi
               toast.error("Enter an amount");
               return;
             }
-=======
-          onClick={() => {
-            const paise = toPaise(amount);
-            if (paise <= 0) { toast.error("Enter an amount"); return; }
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
             const text = note.trim() || null;
             save.mutate(
               {
@@ -183,11 +157,7 @@ function EditSheet({ tx, onClose }: { tx: Transaction | null; onClose: () => voi
               {
                 onSuccess: () => {
                   haptics.confirm();
-<<<<<<< HEAD
                   toast.success("Transaction saved");
-=======
-                  toast.success(`Updated to ${formatMoney(paise)}`);
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
                   onClose();
                 },
                 onError: (error) => toast.error(error.message),
@@ -203,11 +173,7 @@ function EditSheet({ tx, onClose }: { tx: Transaction | null; onClose: () => voi
             remove.mutate(tx.id, {
               onSuccess: () => {
                 haptics.warn();
-<<<<<<< HEAD
                 toast.success("Transaction deleted");
-=======
-                toast.success("Deleted");
->>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
                 onClose();
               },
               onError: (error) => toast.error(error.message),
