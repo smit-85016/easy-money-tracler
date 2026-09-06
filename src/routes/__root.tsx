@@ -81,6 +81,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         name: "viewport",
         content: "width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1",
       },
+<<<<<<< HEAD
       { title: "Worth — Simple Money Tracker" },
       {
         name: "description",
@@ -91,6 +92,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "apple-mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-title", content: "Worth" },
       { property: "og:title", content: "Worth — Simple Money Tracker" },
+=======
+      { title: "Tallyo — Simple Money Tracker" },
+      {
+        name: "description",
+        content:
+          "Tallyo is a minimal money tracker: log spending in seconds, see your real balance, and track what friends owe you.",
+      },
+      { name: "theme-color", content: "#08090F" },
+      { name: "apple-mobile-web-app-capable", content: "yes" },
+      { name: "apple-mobile-web-app-title", content: "Tallyo" },
+      { property: "og:title", content: "Tallyo — Simple Money Tracker" },
+>>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
       {
         property: "og:description",
         content: "Log spending in seconds, see your real balance, track friend settlements.",
@@ -138,7 +151,11 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
+<<<<<<< HEAD
       <Toaster position="bottom-center" />
+=======
+      <Toaster position="top-center" />
+>>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
     </QueryClientProvider>
   );
 }

@@ -25,12 +25,20 @@ import {
 export const Route = createFileRoute("/friends/$friendId")({
   head: () => ({
     meta: [
+<<<<<<< HEAD
       { title: "Friend Ledger — Worth" },
+=======
+      { title: "Friend Ledger — Tallyo" },
+>>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
       {
         name: "description",
         content: "Payment history with one friend, with one-tap settle.",
       },
+<<<<<<< HEAD
       { property: "og:title", content: "Friend Ledger — Worth" },
+=======
+      { property: "og:title", content: "Friend Ledger — Tallyo" },
+>>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
       {
         property: "og:description",
         content: "Payment history with one friend, with one-tap settle.",
@@ -107,7 +115,10 @@ function FriendDetail() {
         </div>
         <GhostButton
           className="w-full"
+<<<<<<< HEAD
           disabled={saveEntry.isPending || toPaise(amount) <= 0}
+=======
+>>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
           onClick={() => {
             const paise = toPaise(amount);
             if (paise <= 0) { toast.error("Enter an amount"); return; }

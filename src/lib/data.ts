@@ -1,6 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
+<<<<<<< HEAD
   clearStore,
+=======
+>>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
   newId,
   readStore,
   writeStore,
@@ -386,6 +389,7 @@ export function useUpdateAccount() {
   });
 }
 
+<<<<<<< HEAD
 export function useResetAllData() {
   const qc = useQueryClient();
   return useMutation({
@@ -403,5 +407,20 @@ export function useResetAllData() {
       void qc.invalidateQueries({ queryKey: ["ledger"] });
       void qc.invalidateQueries({ queryKey: ["accounts"] });
     },
+=======
+
+export function useResetAllData() {
+  const invalidate = useInvalidateAll();
+  return useMutation({
+    mutationFn: async () => {
+      writeStore((data) => {
+        data.transactions = [];
+        data.ledger = [];
+        data.friends = [];
+        return data;
+      });
+    },
+    onSuccess: invalidate,
+>>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
   });
 }

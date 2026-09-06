@@ -1,6 +1,11 @@
 {
+<<<<<<< HEAD
   "name": "Worth — Money Tracker",
   "short_name": "Worth",
+=======
+  "name": "Tallyo — Money Tracker",
+  "short_name": "Tallyo",
+>>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
   "description": "Track expenses, splits and settlements with friends.",
   "start_url": "/",
   "display": "standalone",

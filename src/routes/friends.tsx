@@ -16,12 +16,20 @@ import { formatMoney } from "@/lib/money";
 export const Route = createFileRoute("/friends")({
   head: () => ({
     meta: [
+<<<<<<< HEAD
       { title: "Friends — Worth" },
+=======
+      { title: "Friends — Tallyo" },
+>>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
       {
         name: "description",
         content: "Track who owes you, what you owe, and settle up without touching your balance.",
       },
+<<<<<<< HEAD
       { property: "og:title", content: "Friends — Worth" },
+=======
+      { property: "og:title", content: "Friends — Tallyo" },
+>>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
       {
         property: "og:description",
         content: "Track who owes you, what you owe, and settle up in one tap.",
@@ -76,7 +84,10 @@ function FriendsList() {
         />
         <GhostButton
           className="shrink-0 px-4"
+<<<<<<< HEAD
           disabled={!name.trim() || addFriend.isPending}
+=======
+>>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
           onClick={() => {
             const trimmed = name.trim();
             if (!trimmed) return;
@@ -104,7 +115,11 @@ function FriendsList() {
                 key={friend.id}
                 to="/friends/$friendId"
                 params={{ friendId: friend.id }}
+<<<<<<< HEAD
                 className="press flex items-center gap-3 rounded-2xl px-3 py-3.5 transition-transform duration-75 active:scale-95 active:press-active"
+=======
+                className="press flex items-center gap-3 rounded-2xl px-3 py-3.5 active:press-active"
+>>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
               >
                 <span className="flex size-10 items-center justify-center rounded-full border border-border bg-secondary/50 text-sm font-semibold">
                   {friend.name.slice(0, 1).toUpperCase()}

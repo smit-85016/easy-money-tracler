@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight, ArrowDownLeft, Wallet, Eye, EyeOff } from "lucide-react";
@@ -7,17 +8,34 @@ import { TransactionRow } from "@/components/transaction-row";
 import { useLedger, useSummary } from "@/lib/data";
 import { formatMoney } from "@/lib/money";
 import { haptics } from "@/lib/haptics";
+=======
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowUpRight, ArrowDownLeft, Wallet } from "lucide-react";
+import { AppShell } from "@/components/app-shell";
+import { GlassCard, SectionLabel, EmptyState } from "@/components/primitives";
+import { TransactionRow } from "@/components/transaction-row";
+import { accountBalance, useLedger, useSummary } from "@/lib/data";
+import { formatMoney } from "@/lib/money";
+>>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
+<<<<<<< HEAD
       { title: "Worth — Your Balance At A Glance" },
+=======
+      { title: "Tallyo — Your Balance At A Glance" },
+>>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
       {
         name: "description",
         content:
           "See available balance, spending this month, and pending friend settlements on one calm screen.",
       },
+<<<<<<< HEAD
       { property: "og:title", content: "Worth — Your Balance At A Glance" },
+=======
+      { property: "og:title", content: "Tallyo — Your Balance At A Glance" },
+>>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
       {
         property: "og:description",
         content: "Available balance, monthly spend and friend settlements in one calm screen.",
@@ -28,6 +46,7 @@ export const Route = createFileRoute("/")({
 });
 
 function HomePage() {
+<<<<<<< HEAD
   const [isMasked, setIsMasked] = useState(true);
   const summary = useSummary();
   const { data: ledger = [] } = useLedger();
@@ -35,10 +54,20 @@ function HomePage() {
 
   return (
     <AppShell title="Worth" subtitle="Money, made clear.">
+=======
+  const summary = useSummary();
+  const { data: ledger = [] } = useLedger();
+  const recent = summary.transactions.slice(0, 6);
+  const greeting = new Date().getHours() < 12 ? "Good morning" : new Date().getHours() < 18 ? "Good afternoon" : "Good evening";
+
+  return (
+    <AppShell title="Tallyo" subtitle={greeting}>
+>>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
       <GlassCard className="px-6 py-7">
         <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
           Available Balance
         </p>
+<<<<<<< HEAD
         <div className="mt-2 flex items-center justify-between gap-3">
           <p className="glow-halo numeric text-[44px] font-semibold leading-none">
             {isMasked ? "₹ •••••" : formatMoney(summary.available)}
@@ -55,10 +84,28 @@ function HomePage() {
           >
             {isMasked ? <Eye className="size-5" /> : <EyeOff className="size-5" />}
           </button>
+=======
+        <p className="glow-halo numeric mt-2 text-[44px] font-semibold leading-none">
+          {formatMoney(summary.available)}
+        </p>
+        <div className="mt-5 flex flex-wrap gap-2">
+          {summary.accounts.map((account) => (
+            <span
+              key={account.id}
+              className="glow-edge rounded-full border border-border bg-secondary/40 px-3 py-1.5 text-[12px] text-muted-foreground"
+            >
+              {account.name}{" "}
+              <span className="numeric text-foreground">
+                {formatMoney(accountBalance(account, summary.transactions))}
+              </span>
+            </span>
+          ))}
+>>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
         </div>
       </GlassCard>
 
       <div className="mt-3 grid grid-cols-3 gap-3">
+<<<<<<< HEAD
         <StatCard
           to="/spent-transactions"
           label="Spent"
@@ -80,6 +127,11 @@ function HomePage() {
           tone="warning"
           icon={Wallet}
         />
+=======
+        <StatCard label="Spent" value={summary.spentThisMonth} tone="neutral" icon={ArrowUpRight} />
+        <StatCard label="To Receive" value={summary.toReceive} tone="positive" icon={ArrowDownLeft} />
+        <StatCard label="To Pay" value={summary.toPay} tone="warning" icon={Wallet} />
+>>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
       </div>
 
       <div className="mt-8">
@@ -93,7 +145,11 @@ function HomePage() {
           Recent
         </SectionLabel>
         {recent.length === 0 ? (
+<<<<<<< HEAD
           <EmptyState title="No transactions yet. Tap + to add one." />
+=======
+          <EmptyState title="Nothing logged yet" hint="Tap + to record your first entry." />
+>>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
         ) : (
           <GlassCard className="divide-y divide-border p-1.5">
             {recent.map((tx) => (
@@ -107,13 +163,19 @@ function HomePage() {
 }
 
 function StatCard({
+<<<<<<< HEAD
   to,
+=======
+>>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
   label,
   value,
   tone,
   icon: Icon,
 }: {
+<<<<<<< HEAD
   to: string;
+=======
+>>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
   label: string;
   value: number;
   tone: "neutral" | "positive" | "warning";
@@ -128,6 +190,7 @@ function StatCard({
   const tint =
     tone === "positive" ? "glow-emerald" : tone === "warning" ? "glow-amber" : "glow-cool";
   return (
+<<<<<<< HEAD
     <Link to={to} className="press block focus:outline-none transition-transform duration-75 active:scale-95 active:press-active">
       <GlassCard className={`${tint} px-3.5 py-4 transition-colors hover:border-primary/40`}>
         <Icon className="size-4" style={{ color }} />
@@ -137,5 +200,14 @@ function StatCard({
         <p className="numeric mt-1 text-[17px] font-semibold">{formatMoney(value)}</p>
       </GlassCard>
     </Link>
+=======
+    <GlassCard className={`${tint} px-3.5 py-4`}>
+      <Icon className="size-4" style={{ color }} />
+      <p className="mt-2 text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
+        {label}
+      </p>
+      <p className="numeric mt-1 text-[17px] font-semibold">{formatMoney(value)}</p>
+    </GlassCard>
+>>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
   );
 }

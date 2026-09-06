@@ -61,6 +61,7 @@ export function newId(): string {
   return `id-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
 }
 
+<<<<<<< HEAD
 export function initialStore(): StoreData {
   const now = new Date().toISOString();
   return {
@@ -83,6 +84,14 @@ export function initialStore(): StoreData {
         archived: false,
         created_at: now,
       },
+=======
+function seed(): StoreData {
+  const now = new Date().toISOString();
+  return {
+    accounts: [
+      { id: newId(), name: "Bank", kind: "bank", opening_balance: 0, sort_order: 0, archived: false, created_at: now },
+      { id: newId(), name: "Cash", kind: "cash", opening_balance: 0, sort_order: 1, archived: false, created_at: now },
+>>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
     ],
     transactions: [],
     friends: [],
@@ -97,21 +106,30 @@ export function readStore(): StoreData {
   try {
     const raw = window.localStorage.getItem(KEY);
     if (!raw) {
+<<<<<<< HEAD
       const fresh = initialStore();
+=======
+      const fresh = seed();
+>>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
       window.localStorage.setItem(KEY, JSON.stringify(fresh));
       return fresh;
     }
     const parsed = JSON.parse(raw) as Partial<StoreData>;
     return {
+<<<<<<< HEAD
       accounts:
         parsed.accounts && parsed.accounts.length > 0
           ? parsed.accounts.map((a) => ({ ...a, opening_balance: a.opening_balance ?? 0 }))
           : initialStore().accounts,
+=======
+      accounts: parsed.accounts ?? [],
+>>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
       transactions: parsed.transactions ?? [],
       friends: parsed.friends ?? [],
       ledger: parsed.ledger ?? [],
     };
   } catch {
+<<<<<<< HEAD
     return initialStore();
   }
 }
@@ -129,6 +147,12 @@ export function clearStore(): StoreData {
   return fresh;
 }
 
+=======
+    return seed();
+  }
+}
+
+>>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
 export function writeStore(update: (data: StoreData) => StoreData | void): StoreData {
   const current = readStore();
   const next = update(current) ?? current;

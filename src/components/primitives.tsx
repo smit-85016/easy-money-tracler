@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { useEffect, useRef, type MouseEvent, type ReactNode } from "react";
+=======
+import type { MouseEvent, ReactNode } from "react";
+>>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
 import { cn } from "@/lib/utils";
 import { haptics } from "@/lib/haptics";
 
@@ -56,7 +60,11 @@ export function Chip({
         onClick?.();
       }}
       className={cn(
+<<<<<<< HEAD
         "press glow-edge rounded-full border px-4 py-2 text-sm font-medium transition-transform duration-75 active:scale-95 active:press-active",
+=======
+        "press glow-edge rounded-full border px-4 py-2 text-sm font-medium active:press-active",
+>>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
         active
           ? "border-primary/60 bg-primary/15 text-foreground"
           : "border-border bg-secondary/50 text-muted-foreground",
@@ -79,6 +87,7 @@ export function AmountField({
   autoFocus?: boolean;
   placeholder?: string;
 }) {
+<<<<<<< HEAD
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -89,12 +98,17 @@ export function AmountField({
     return () => clearTimeout(timer);
   }, [autoFocus]);
 
+=======
+>>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
   return (
     <div className="flex items-baseline justify-center gap-1 py-2">
       <span className="text-3xl font-light text-muted-foreground">₹</span>
       <input
+<<<<<<< HEAD
         ref={inputRef}
         type="text"
+=======
+>>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
         inputMode="decimal"
         autoFocus={autoFocus}
         value={value}
@@ -145,7 +159,11 @@ export function PrimaryButton({
     <button
       {...rest}
       className={cn(
+<<<<<<< HEAD
         "press glow-button w-full rounded-2xl bg-primary px-5 py-4 text-[15px] font-semibold text-primary-foreground shadow-float transition-transform duration-75 active:scale-95 active:press-active disabled:cursor-not-allowed disabled:opacity-40 disabled:pointer-events-none",
+=======
+        "press glow-button w-full rounded-2xl bg-primary px-5 py-4 text-[15px] font-semibold text-primary-foreground shadow-float active:press-active disabled:opacity-40",
+>>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
         className,
       )}
     >
@@ -163,7 +181,11 @@ export function GhostButton({
     <button
       {...rest}
       className={cn(
+<<<<<<< HEAD
         "press glow-edge rounded-2xl border border-border bg-secondary/50 px-4 py-3 text-sm font-medium text-foreground transition-transform duration-75 active:scale-95 active:press-active disabled:cursor-not-allowed disabled:opacity-40 disabled:pointer-events-none",
+=======
+        "press glow-edge rounded-2xl border border-border bg-secondary/50 px-4 py-3 text-sm font-medium text-foreground active:press-active",
+>>>>>>> 7d57194f3c1c2fc0c9389ca49cb0ec2db007890c
         className,
       )}
     >
