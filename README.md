@@ -9,6 +9,7 @@
 </p>
 
 <p align="center">
+  <a href="#-installing-as-a-pwa-no-app-store-needed"><img src="https://img.shields.io/badge/PWA-Installable-8b5cf6?style=for-the-badge&logo=pwa&logoColor=white" alt="PWA Ready" /></a>
   <a href="#features"><img src="https://img.shields.io/badge/UX-Mobile--First-6366f1?style=for-the-badge" alt="Mobile First" /></a>
   <a href="#tech-stack"><img src="https://img.shields.io/badge/Stack-TanStack%20Start%20%7C%20React-06b6d4?style=for-the-badge" alt="TanStack Start" /></a>
   <a href="#tech-stack"><img src="https://img.shields.io/badge/TypeScript-5.0-3178c6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" /></a>
@@ -26,6 +27,33 @@ Record an expense in under three seconds, glance at your real available balance,
 
 > [!NOTE]
 > **100% Local & Private**: All data stays strictly on your device using local storage. No accounts required, no tracking, and no external servers storing your financial records.
+
+---
+
+## 📲 Installing as a PWA (No App Store Needed)
+
+Worth is built as a modern **Progressive Web App (PWA)**. You don't need to visit the Google Play Store or Apple App Store to get the native app experience. You can install it directly onto your phone, tablet, or desktop in just two clicks.
+
+### How to Install
+
+#### 🌐 On Android & Desktop (Chrome, Edge, Brave, etc.)
+1. Open the app URL in your browser.
+2. Click or tap the **three dots menu (`⋮`)** in the top-right corner of your browser (or the **Install App (`⊕`)** icon in the address bar).
+3. Select **"Install App"** or **"Add to Home Screen"**.
+4. Confirm by clicking **Install**. The Worth icon will appear on your home screen and desktop just like a native app.
+
+#### 🍏 On iPhone & iPad (Safari)
+1. Open the app URL in **Safari**.
+2. Tap the **Share button** (`⎋` — the square with an upward arrow) in the bottom toolbar.
+3. Scroll down the share menu and tap **"Add to Home Screen"**.
+4. Tap **"Add"** in the top right corner. The Worth app is now installed on your iOS home screen.
+
+### 🌟 Why a Progressive Web App (PWA)?
+- ⚡ **Lightweight & Instant**: Zero bloated 100MB+ downloads. Installs in under 2 seconds and takes virtually no device storage.
+- 📴 **100% Offline Capability**: Once loaded, cached service assets and your local database allow the app to work flawlessly without internet access.
+- 📱 **Clean Standalone Experience**: Opens in full-screen standalone mode with no browser URL bars, tabs, or distractions.
+- 🔄 **Always Updated**: No manual app updates needed—you're always on the latest version whenever you open the app.
+- 🛡️ **Zero Permissions Required**: No access requested to your contacts, photos, camera, or location.
 
 ---
 
@@ -55,6 +83,19 @@ Record an expense in under three seconds, glance at your real available balance,
 ### 🏦 Multi-Account Support
 - Manage separate balances for multiple **Bank Accounts**, **Cash in Hand**, and digital **Wallets**.
 - Edit starting balances and account names dynamically.
+
+---
+
+## 🔮 Future Vision & Roadmap
+
+Worth is continually evolving into the ultimate personal money management companion while maintaining its ultra-fast, offline-first DNA. Here is what is on the roadmap:
+
+- 🔐 **Biometric App Lock**: Optional Face ID / Touch ID / Fingerprint protection using the WebAuthn API for instant on-device authentication.
+- 💾 **Encrypted Local Backups & Export**: One-tap export of your entire financial database to password-encrypted JSON or CSV for easy offline backups or spreadsheet analysis.
+- 🔁 **Smart Subscriptions & Recurring Bills**: Dedicated tracker for monthly recurring commitments (rent, streaming services, utilities) with upcoming due date reminders.
+- 🎯 **Monthly Budgeting & Limits**: Set discretionary monthly budgets per category with subtle, non-intrusive progress rings and threshold warnings.
+- 🌍 **Multi-Currency Support**: Built-in support for global currencies with on-demand offline conversion for travel and international group trips.
+- 🏷️ **Custom Tags & Receipt Notes**: Rich tagging support (`#vacation`, `#work`, `#tax-deductible`) for deeper categorization.
 
 ---
 
